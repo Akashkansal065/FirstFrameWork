@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<!--Web browserName = chrome,firefox,iexplorer,safari -->
+<!--Msite browserName = apple,iphonesize,androidsize -->
+<!--M deviceName = Apple iphone 6,Nexus 5 -->
+
+<suite name="DataDriven">
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter"></listener>
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter"></listener>
+	</listeners>
+
+	<parameter name="deviceName" value="Apple iphone 6"></parameter>
+	<test name="Basic">
+		<parameter name="URL" value=""></parameter>
+		<parameter name="browserName" value="chrome"></parameter>
+		<packages>
+			<package name="com.magic.testcases"></package>
+		</packages>
+	</test>
+</suite>
