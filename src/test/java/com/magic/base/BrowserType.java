@@ -1,4 +1,4 @@
-package com.magic.utilities;
+package com.magic.base;
 
 import java.util.HashMap;
 import java.util.Map;
