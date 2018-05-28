@@ -6,7 +6,7 @@ public class SeleniumContext {
 
 	public static ITestContext context = null;
 
-	public ITestContext getAllContext()
+	public static ITestContext getAllContext()
 	{
 		return context;
 	}
@@ -14,7 +14,7 @@ public class SeleniumContext {
 	/*public SeleniumContext(ITestContext context ){
 		SeleniumContext.context = context;
 	}*/
-	
+
 	static String BROWSER_TYPE = "browserName";
 	static String DEVICE_NAME = "deviceName";
 
@@ -36,4 +36,5 @@ public class SeleniumContext {
 	{
 		return context.getSuite().getParameter(DEVICE_NAME).toString();
 	}
+
 }

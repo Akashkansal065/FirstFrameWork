@@ -113,13 +113,9 @@
 			<version>v4-rev493-1.23.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client-assembly -->
-		<!--<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client-assembly</artifactId>
-			<version>1.23.0</version>
-			<type>pom</type>
-			</dependency>-->
-		
+		<!--<dependency> <groupId>com.google.api-client</groupId> <artifactId>google-api-client-assembly</artifactId> 
+			<version>1.23.0</version> <type>pom</type> </dependency> -->
+
 	</dependencies>
 
 
@@ -146,6 +142,15 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<!-- This is used for defining log4j property file -->
+		<testResources>
+			<testResource>
+				<directory>src/test/resources/properties</directory>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
+			</testResource>
+		</testResources>
 	</build>
 
 

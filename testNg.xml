@@ -6,7 +6,8 @@
 <!--Msite browserName = apple,iphonesize,androidsize -->
 <!--M deviceName = Apple iphone 6,Nexus 5 -->
 
-<suite name="DataDriven">
+<suite name="DataDriven" parallel="methods" thread-count="5"
+	verbose="2">
 	<listeners>
 		<listener class-name="org.uncommons.reportng.HTMLReporter"></listener>
 		<listener class-name="org.uncommons.reportng.JUnitXMLReporter"></listener>
@@ -17,8 +18,11 @@
 	<test name="Basic">
 		<parameter name="URL" value=""></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
-		<packages>
+		<!-- <packages>
 			<package name="com.magic.testcases"></package>
-		</packages>
+		</packages> -->
+		<classes>
+			<class name="com.magic.testcases.TestClassFirst"></class>
+		</classes>
 	</test>
 </suite>
