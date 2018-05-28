@@ -19,7 +19,7 @@ public class TestClassFirst extends Base{
 		ExtentTestManager.getTest().log(LogStatus.INFO,"saanjadn");
 		System.out.println("Driver  Launched");
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,second,"Value are same");
 		/*String Text=driver.findElement(By.cssSelector(OR.getProperty("ALL"))).getText();
@@ -38,7 +38,7 @@ public class TestClassFirst extends Base{
 		System.out.println("Driver  Launched");
 		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,second,"Value are not same");
 		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");
@@ -56,7 +56,7 @@ public class TestClassFirst extends Base{
 		ExtentTestManager.getTest().log(LogStatus.INFO,"saanjadn");
 		System.out.println("Driver  Launched");
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are same");
 		/*String Text=driver.findElement(By.cssSelector(OR.getProperty("ALL"))).getText();
@@ -75,7 +75,7 @@ public class TestClassFirst extends Base{
 		System.out.println("Driver  Launched");
 		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are not same");
 		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");
@@ -89,7 +89,7 @@ public class TestClassFirst extends Base{
 		System.out.println("Driver  Launched");
 		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are not same");
 		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");
@@ -103,7 +103,7 @@ public class TestClassFirst extends Base{
 		System.out.println("Driver  Launched");
 		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are not same");
 		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");
@@ -117,7 +117,7 @@ public class TestClassFirst extends Base{
 		System.out.println("Driver  Launched");
 		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
 
-		sendData(OR.getProperty("Textenter"),first+second+third);
+		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are not same");
 		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");

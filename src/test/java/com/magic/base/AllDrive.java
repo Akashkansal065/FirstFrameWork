@@ -7,18 +7,16 @@ public class AllDrive {
 
 	public static ThreadLocal<WebDriver> driverSession = new ThreadLocal<WebDriver>();
 
-	public WebDriver driver;
-
-	public WebDriver createWebDriver() throws Exception {
+	private static WebDriver createWebDriver() throws Exception {
 		System.out.println("jdadsadadnadjsakdnkandjkasndkdnakjsndskndas");
-		driver = BrowserType.browser();
+		WebDriver driver = BrowserType.browser();
 		driverSession.set(driver);
 		return driver;
 	}
-	public static WebDriver getWebDriver(final Boolean isCreate) {
+	private static WebDriver getWebDriver(final Boolean isCreate) {
 		if (driverSession.get() == null && isCreate) {
 			try {
-				new AllDrive().createWebDriver();
+				createWebDriver();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -26,7 +24,7 @@ public class AllDrive {
 		if(driverSession.get() == null)
 		{
 		try {
-			new AllDrive().createWebDriver();
+			createWebDriver();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

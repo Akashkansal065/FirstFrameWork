@@ -26,7 +26,7 @@ public class Base {
 
 	//public static WebDriver driver;
 	public Properties config = new Properties();
-	public Properties OR = new Properties();
+	//public Properties OR = new Properties();
 	FileInputStream fis ;
 	public static Logger log = Logger.getLogger("devpinoyLogger");
 	String spreadsheetId="14-7PNS2RzGrdvvx5VMBvRlZoyX_oHJ_JJtiPidrgbEs";
@@ -44,23 +44,23 @@ public class Base {
 		config.load(fis);
 		log.debug("Config File Loaded");
 		fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//OR.properties");
-		OR.load(fis);
+		//OR.load(fis);
 		log.debug("OR file Loaded");
 		//driver = AllDrive.getWebDriver();
 		//		driver = BrowserType.browser();
 		//log.debug("Drver Loaded with browser name:-"+new SeleniumContext().getTestLevelBROWSER_TYPE());
 		//driver.get(config.getProperty("URL"));
-		log.debug("Url Opened:-"+config.getProperty("URL"));
+		//log.debug("Url Opened:-"+config.getProperty("URL"));
 		//driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicitWait")), TimeUnit.SECONDS);
 		//values = sheetAPI.getSpreadSheetRecords(spreadsheetId, range);
 	}
-	@BeforeMethod
+	@BeforeMethod(alwaysRun=true)
 	public void captainAmerica()
 	{
 		WebDriver driver;
 		driver = AllDrive.getWebDriver();
-		driver.get(config.getProperty("URL"));
-		driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicitWait")), TimeUnit.SECONDS);
+		driver.get("https://www.google.com");
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
 	@AfterSuite(alwaysRun=true)

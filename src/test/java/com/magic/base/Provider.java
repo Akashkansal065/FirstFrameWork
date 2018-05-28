@@ -10,12 +10,12 @@ public class Provider extends Base{
 	@DataProvider
 	public Object[][] insert(Method m)
 	{
-		/*Class<? extends Object> className = m.getDeclaringClass();
+		Class<? extends Object> className = m.getDeclaringClass();
 		System.out.println(className.getSimpleName());
 		Method[] meth =className.getDeclaredMethods();
 		for (Method method : meth) {
 			System.out.println(method.getName());
-		}*/
+		}
 		String sheetname ="Sheet1";
 		int rows = excel.getRowCount(sheetname);
 		int column = excel.getColumnCount(sheetname);

@@ -16,7 +16,7 @@ import com.magic.seleniumUtils.SeleniumContext;
 
 public class BrowserType {
 
-	public static synchronized WebDriver browser()
+	static synchronized WebDriver browser()
 	{
 		WebDriver driver;
 		String browserName = null;
