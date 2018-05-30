@@ -12,7 +12,7 @@ import com.relevantcodes.extentreports.LogStatus;
 @Guice
 public class TestClassFirst extends Base{
 
-	@Test(dataProviderClass = Provider.class,dataProvider="gInsert",description = "Failed Test")
+	@Test(dataProviderClass = Provider.class,dataProvider="insert",description = "Failed Test")
 	public void firstTestCase(String first,String second,String third)
 	{
 		log.debug("First Test Case");
@@ -49,7 +49,7 @@ public class TestClassFirst extends Base{
 
 
 
-	@Test(dataProviderClass = Provider.class,dataProvider="gInsert",description = "sdfsdfds")
+	/*@Test(dataProviderClass = Provider.class,dataProvider="gInsert",description = "sdfsdfds")
 	public void firstTestCases(String first,String second,String third)
 	{
 		log.debug("First Test Case");
@@ -59,12 +59,12 @@ public class TestClassFirst extends Base{
 		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are same");
-		/*String Text=driver.findElement(By.cssSelector(OR.getProperty("ALL"))).getText();
+		String Text=driver.findElement(By.cssSelector(OR.getProperty("ALL"))).getText();
 		Assert.assertEquals("All",Text);
 		Assert.assertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))));
 		log.debug("Test NEd");
 		Assert.fail();
-		System.out.println("Fail");*/
+		System.out.println("Fail");
 	}
 
 
@@ -123,5 +123,5 @@ public class TestClassFirst extends Base{
 		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");
 		log.debug("Test NEd");
 		System.out.println("Fail");
-	}
+	}*/
 }

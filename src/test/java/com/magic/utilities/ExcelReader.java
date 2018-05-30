@@ -86,7 +86,7 @@ public class ExcelReader {
 	}
 
 	@SuppressWarnings("deprecation")
-	public String getCellData(String sheetName,int colNo,int rowNo)
+	public String getCellData(int rowNo,int colNo,String sheetName)
 	{
 		int index = workbook.getSheetIndex(sheetName);
 		if(index == -1)
@@ -95,8 +95,8 @@ public class ExcelReader {
 		}
 		sheet = workbook.getSheetAt(index);
 		row = sheet.getRow(rowNo);
-		System.out.println("row no.:- "+rowNo);
-		System.out.println("colNo:- "+colNo);
+		//System.out.println("row no.:- "+rowNo);
+		//System.out.println("colNo:- "+colNo);
 		cell = row.getCell(colNo);
 		if(cell == null)
 		{
@@ -128,7 +128,7 @@ public class ExcelReader {
 		}
 		else
 		{
-			System.out.println(cell.getStringCellValue());
+			//System.out.println(cell.getStringCellValue());
 			return cell.getStringCellValue();
 		}
 	}

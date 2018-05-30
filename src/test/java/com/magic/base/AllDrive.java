@@ -8,7 +8,6 @@ public class AllDrive {
 	public static ThreadLocal<WebDriver> driverSession = new ThreadLocal<WebDriver>();
 
 	private static WebDriver createWebDriver() throws Exception {
-		System.out.println("jdadsadadnadjsakdnkandjkasndkdnakjsndskndas");
 		WebDriver driver = BrowserType.browser();
 		driverSession.set(driver);
 		return driver;

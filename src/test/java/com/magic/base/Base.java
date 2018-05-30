@@ -2,8 +2,8 @@ package com.magic.base;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -17,9 +17,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.magic.seleniumUtils.SeleniumContext;
-import com.magic.utilities.ExcelReader;
+import com.magic.utilities.ExtentManager;
 import com.magic.utilities.ExtentTestManager;
-import com.magic.utilities.GoogleSheet;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class Base {
@@ -29,23 +28,24 @@ public class Base {
 	//public Properties OR = new Properties();
 	FileInputStream fis ;
 	public static Logger log = Logger.getLogger("devpinoyLogger");
-	String spreadsheetId="14-7PNS2RzGrdvvx5VMBvRlZoyX_oHJ_JJtiPidrgbEs";
+	/*String spreadsheetId="14-7PNS2RzGrdvvx5VMBvRlZoyX_oHJ_JJtiPidrgbEs";
 	String range="'Sprint 20'";
 	GoogleSheet sheetAPI = new GoogleSheet();
 	public List<List<Object>> values;
 	public ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//testData.xlsx");
-	public Date date = new Date();
+*/	public Date date = new Date();
 
 	@BeforeSuite
 	public void Marvel(ITestContext context) throws IOException
 	{
+		System.out.println("Before Suite");
 		SeleniumContext.context = context;
 		fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//config.properties");
 		config.load(fis);
 		log.debug("Config File Loaded");
-		fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//OR.properties");
+		//fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//OR.properties");
 		//OR.load(fis);
-		log.debug("OR file Loaded");
+		//log.debug("OR file Loaded");
 		//driver = AllDrive.getWebDriver();
 		//		driver = BrowserType.browser();
 		//log.debug("Drver Loaded with browser name:-"+new SeleniumContext().getTestLevelBROWSER_TYPE());
@@ -55,8 +55,9 @@ public class Base {
 		//values = sheetAPI.getSpreadSheetRecords(spreadsheetId, range);
 	}
 	@BeforeMethod(alwaysRun=true)
-	public void captainAmerica()
+	public void captainAmerica(Method m)
 	{
+		System.out.println("Before Mehod Executing fo the method :- "+m.getName());
 		WebDriver driver;
 		driver = AllDrive.getWebDriver();
 		driver.get("https://www.google.com");
@@ -70,6 +71,7 @@ public class Base {
 		/*if(driver!=null)
 			driver.quit();*/
 		log.debug("END");
+		ExtentManager.getInstance().flush();
 	}
 
 	public void sendData(String locator,String Value)

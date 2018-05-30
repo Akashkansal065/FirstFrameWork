@@ -18,9 +18,7 @@
 	<test name="Basic">
 		<parameter name="URL" value=""></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
-		<!-- <packages>
-			<package name="com.magic.testcases"></package>
-		</packages> -->
+		<!-- <packages> <package name="com.magic.testcases"></package> </packages> -->
 		<classes>
 			<class name="com.magic.testcases.TestClssSecond"></class>
 			<class name="com.magic.testcases.TestClassFirst"></class>
