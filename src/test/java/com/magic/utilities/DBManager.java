@@ -87,9 +87,9 @@ public class DBManager {
 				{
 					map.put(rowData.getColumnName(i),rs.getString(rowData.getColumnName(i)));
 				}
-				closeConnection(c, rs, stm);
 				list.add(map);
 			}
+			closeConnection(c, rs, stm);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

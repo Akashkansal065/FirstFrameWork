@@ -1,6 +1,8 @@
 package com.magic.listners;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
@@ -12,6 +14,23 @@ public class CustomAssert {
 
 	public static Map<Long,Boolean> map = new HashMap<Long,Boolean>();
 	
+	public static Map<Long, List<Throwable>> verificationFailuresMap = new HashMap<Long, List<Throwable>>();
+	
+	public static void addVerificationFailures(final Long result, final List<Throwable> failures) {
+
+        verificationFailuresMap.put(result, failures);
+    }
+
+    public static void addVerificationFailures(final Long result, final Throwable failure) {
+
+        if (verificationFailuresMap.get(result) != null) {
+            verificationFailuresMap.get(result).add(failure);
+        } else {
+            ArrayList<Throwable> failures = new ArrayList<Throwable>();
+            failures.add(failure);
+            addVerificationFailures(result, failures);
+        }
+    }
 	/*public static final ThreadLocal<Boolean> threadId = new ThreadLocal<Boolean>()
 	{
 		@Override 
@@ -24,12 +43,14 @@ public class CustomAssert {
 	
 	private static void addVerificationFailure(final Throwable e) {
 		map.put(Thread.currentThread().getId(), false);
+		addVerificationFailures(Thread.currentThread().getId(), e);
 		ExtentTestManager.getTest().log(LogStatus.FAIL,"!!!FAILURE ALERT!!! - Assertion Failure: " + e.getMessage());
 		System.out.println("Inside Failure Assert");
 	}
 
 	private static void addVerificationFailure(final Throwable e,String Actual,String Expected) {
 		map.put(Thread.currentThread().getId(), false);
+		addVerificationFailures(Thread.currentThread().getId(), e);
 		ExtentTestManager.getTest().log(LogStatus.FAIL,Actual+" Not Matched with "+Expected,"!!!FAILURE ALERT!!! - Assertion Failure: " + e.getMessage());
 		System.out.println("Inside Failure Assert");
 	}

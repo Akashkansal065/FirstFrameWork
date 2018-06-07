@@ -29,9 +29,9 @@ public class ExtentTestManager {
 		return map.get((int)Thread.currentThread().getId());
 	}
 
-	public static synchronized ExtentTest endTest()
+	public static synchronized void endTest()
 	{
-		return map.get((int)Thread.currentThread().getId());
+		report.endTest(map.get((int)Thread.currentThread().getId()));
 	}
 
 

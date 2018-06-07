@@ -9,6 +9,7 @@
 <suite name="DataDriven" parallel="methods" thread-count="5"
 	verbose="1">
 	<listeners>
+		<listener class-name="com.magic.listners.AnnotationTransformer"></listener>
 		<listener class-name="org.uncommons.reportng.HTMLReporter"></listener>
 		<listener class-name="org.uncommons.reportng.JUnitXMLReporter"></listener>
 		<listener class-name="com.magic.listners.CustomListner"></listener>
@@ -18,10 +19,15 @@
 	<test name="Basic">
 		<parameter name="URL" value=""></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
+		<groups>
+			<run>
+				<include name="end"></include>
+			</run>
+		</groups>
 		<!-- <packages> <package name="com.magic.testcases"></package> </packages> -->
 		<classes>
 			<class name="com.magic.testcases.TestClssSecond"></class>
-			<class name="com.magic.testcases.TestClassFirst"></class>
+			<!-- <class name="com.magic.testcases.TestClassFirst"></class> -->
 		</classes>
 	</test>
 </suite>

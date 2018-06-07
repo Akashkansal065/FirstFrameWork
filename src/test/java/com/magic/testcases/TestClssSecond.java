@@ -12,16 +12,17 @@ import com.relevantcodes.extentreports.LogStatus;
 @Guice
 public class TestClssSecond extends Base{
 
-	@Test(dataProviderClass = Provider.class,dataProvider="insert",description = "sdfsdfds")
-	public void one(String first,String second,String third)
+	@Test(groups={"end"},dataProviderClass = Provider.class,dataProvider="insert",description = "sdfsdfds")
+	public void two(String first,String second,String third)
 	{
 		log.debug("First Test Case");
 		ExtentTestManager.getTest().log(LogStatus.INFO,"saanjadn");
 		System.out.println("Driver  Launched");
-
+		CustomAssert.AssertEqual(first,second,"Value are not same");
 		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
-		CustomAssert.AssertEqual(first,second,"Value are not same");
+		CustomAssert.AssertEqual(first,third,"Value are not same");
+		//CustomAssert.AssertEqual(first,second,"Value are not same");
 		/*	String Text=driver.findElement(By.cssSelector(OR.getProperty("ALL"))).getText();
 		Assert.assertEquals("All",Text);
 		Assert.assertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))));
@@ -31,14 +32,14 @@ public class TestClssSecond extends Base{
 	}
 
 
-	@Test(dataProviderClass = Provider.class,dataProvider="insert",description = "ddssd")
-	public void two(String first,String second,String third)
+	@Test(groups={"end"},dataProviderClass = Provider.class,dataProvider="insert",description = "ddssd")
+	public void three(String first,String second,String third)
 	{
 		
 		log.debug("Second Test Case");
 		System.out.println("Driver  Launched");
 		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
-
+		CustomAssert.AssertEqual(first,first,"Value are not same");
 		sendData("#lst-ib",first+second+third);
 		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		CustomAssert.AssertEqual(first,first,"Value are not same");

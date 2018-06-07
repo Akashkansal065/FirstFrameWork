@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -33,9 +34,10 @@ public class Base {
 	GoogleSheet sheetAPI = new GoogleSheet();
 	public List<List<Object>> values;
 	public ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//testData.xlsx");
-*/	public Date date = new Date();
+	 */
+	public Date date = new Date();
 
-	@BeforeSuite
+	@BeforeSuite(alwaysRun=true)
 	public void Marvel(ITestContext context) throws IOException
 	{
 		System.out.println("Before Suite");
@@ -62,6 +64,11 @@ public class Base {
 		driver = AllDrive.getWebDriver();
 		driver.get("https://www.google.com");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	@AfterMethod(alwaysRun=true)
+	public void ironMan()
+	{
+		System.out.println("After Methoddddddddddddddddd");
 	}
 
 	@AfterSuite(alwaysRun=true)

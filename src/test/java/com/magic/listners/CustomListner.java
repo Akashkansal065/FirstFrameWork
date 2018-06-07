@@ -1,6 +1,8 @@
 package com.magic.listners;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -11,14 +13,14 @@ import org.testng.Reporter;
 import org.testng.internal.TestResult;
 
 import com.magic.base.AllDrive;
-import com.magic.base.Base;
 import com.magic.utilities.ExtentManager;
 import com.magic.utilities.ExtentTestManager;
 import com.magic.utilities.ScreenShot;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class CustomListner extends Base implements ITestListener,IInvokedMethodListener{
+public class CustomListner implements ITestListener,IInvokedMethodListener{
 
+	public Date date =new Date();
 	@Override
 	public void onTestStart(ITestResult testResult) {
 		System.out.println("On test Start Method Called");
@@ -50,7 +52,19 @@ public class CustomListner extends Base implements ITestListener,IInvokedMethodL
 		}
 		catch (IOException e) {e.printStackTrace();}
 
-		ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName));
+		if (testResult.getMethod().getRetryAnalyzer() != null) {
+			RetryAnalyzer retryAnalyzer = (RetryAnalyzer)testResult.getMethod().getRetryAnalyzer();
+
+			if(retryAnalyzer.isRetryAvailable()) {
+				testResult.setStatus(ITestResult.SKIP);
+				ExtentTestManager.getTest().log(LogStatus.SKIP,ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+			} else {
+				testResult.setStatus(ITestResult.FAILURE);
+				ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+			}
+			//Reporter.setCurrentTestResult(testResult);
+		}
+		//ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
 		Reporter.log("Test complete");
 		Reporter.log("<a target=\"blank\" href="+shotName+">Click</a>");
 		AllDrive.cleanUp();
@@ -61,8 +75,8 @@ public class CustomListner extends Base implements ITestListener,IInvokedMethodL
 	@Override
 	public void onTestSkipped(ITestResult testResult) {
 		System.out.println("Test Skipped:- "+testResult.getMethod().getMethodName());
-		ExtentTestManager.getTest().log(LogStatus.SKIP,"Test Gets Skipped");
-		//AllDrive.cleanUp();
+		ExtentTestManager.getTest().log(LogStatus.SKIP,"Test Gets Skipped on onTestSkipped");
+		AllDrive.cleanUp();
 		ExtentTestManager.endTest();
 		ExtentManager.getInstance().flush();
 	}
@@ -93,15 +107,43 @@ public class CustomListner extends Base implements ITestListener,IInvokedMethodL
 		System.out.println("After Invocation about to End Following method:- "+method.getTestMethod().getMethodName());
 
 		// Handle Soft CustomAssertion
-		if (method.isTestMethod()) 
+		if (testResult.getMethod().isTest()) 
 		{
 			if(!CustomAssert.map.isEmpty())
 			{
 				if(CustomAssert.map.get(Thread.currentThread().getId()) == false)
 				{
 					System.out.println("Making the test Failed");
+					//Change Pass to failure and throw custom exception error
+					if (testResult.getStatus() == ITestResult.SUCCESS) {
+						ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
+						tc.getPassedTests().addResult(testResult, Reporter.getCurrentTestResult().getMethod());
+						tc.getPassedTests().getAllMethods().remove(Reporter.getCurrentTestResult().getMethod());
+						Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
+						List<Throwable> ls=CustomAssert.verificationFailuresMap.get(Thread.currentThread().getId());
+						int size = ls.size();
+						
+						if(size == 1)
+						{
+							ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail",ls.get(0));
+							Reporter.getCurrentTestResult().setThrowable(ls.get(0));
+						}
+						if(size > 1)
+						{
+							for(int i=0;i<size;i++)
+							{
+								ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail :- "+i,ls.get(i));
+								Reporter.getCurrentTestResult().setThrowable(ls.get(i));
+							}
+						}
+
+						tc.getFailedTests().addResult(testResult, Reporter.getCurrentTestResult().getMethod());
+						//tc.getSkippedTests().addResult(testResult, Reporter.getCurrentTestResult().getMethod());
+					}
+
 					testResult.setStatus(TestResult.FAILURE);
 					CustomAssert.map.clear();
+					CustomAssert.verificationFailuresMap.clear();
 				}
 			}
 		}

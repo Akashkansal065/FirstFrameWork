@@ -76,9 +76,9 @@ public class Provider{
 		//System.out.println("Row Count:-"+rows);
 		//System.out.println("Column Count:-"+column);
 
-		Object [][] arr = new String [1][column];
+		Object [][] arr = new String [rows][column];
 		//System.out.println(arr.length);
-		for(int i=1;i<2;i++)
+		for(int i=1;i<3;i++)
 		{
 			for(int j=0;j<column;j++)
 			{
@@ -88,7 +88,7 @@ public class Provider{
 		return arr;
 	}
 
-	@DataProvider
+	/*@DataProvider
 	public String[][] gInsert()
 	{
 		String spreadsheetId="14-7PNS2RzGrdvvx5VMBvRlZoyX_oHJ_JJtiPidrgbEs";
@@ -110,5 +110,5 @@ public class Provider{
 			}
 		}
 		return arr;
-	}
+	}*/
 }
