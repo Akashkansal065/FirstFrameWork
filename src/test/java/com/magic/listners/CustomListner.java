@@ -104,7 +104,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
 
 		Reporter.setCurrentTestResult(testResult);
-		System.out.println("After Invocation about to End Following method:- "+method.getTestMethod().getMethodName());
+		System.out.println("After Invocation about to End Following method:- "+method.getTestMethod().getMethodName() + "   " + testResult);
 
 		// Handle Soft CustomAssertion
 		if (testResult.getMethod().isTest()) 
@@ -146,6 +146,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 					CustomAssert.verificationFailuresMap.clear();
 				}
 			}
+			System.out.println("After invocationnnnnnnnnnnnnnnnn "+testResult);
 		}
 	}
 }

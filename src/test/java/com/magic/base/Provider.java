@@ -37,11 +37,12 @@ public class Provider{
 		HashMap<String,HashMap<String,String>> maps = new HashMap<String,HashMap<String,String>>();
 		HashMap<String,String> map = new HashMap<String,String>();
 		List<String> firstRowColumnName = new LinkedList<String>();
-
+		System.out.println(rows);
 		for(int i=0;i<=rows;i++)
 		{
 			for(int j=0;j<1;j++)
 			{
+				System.out.println(excel.getCellData(i, 0,sheetname));
 				firstRowColumnName.add(excel.getCellData(i, 0,sheetname));
 			}
 		}
@@ -49,6 +50,7 @@ public class Provider{
 		{
 			for(int j=1;j<column;j++)
 			{
+				//System.out.println(excel.getCellData(0, j,sheetname)+" : "+excel.getCellData(i, j,sheetname));
 				map.put(excel.getCellData(0, j,sheetname),excel.getCellData(i, j,sheetname));
 			}
 			maps.put(firstRowColumnName.get(i), map);
@@ -63,6 +65,7 @@ public class Provider{
 			}
 			System.out.println("");
 		}*/
+		
 		if(!maps.containsKey(m.getName()))
 		{
 			Reporter.log("Test start onTestStart:- "+m.getName());
