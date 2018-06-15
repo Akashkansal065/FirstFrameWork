@@ -2,9 +2,11 @@ package com.magic.base;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.Reporter;
 import org.testng.SkipException;
@@ -22,7 +24,7 @@ public class Provider{
 	@DataProvider
 	public Object[][] insert(Method m)
 	{
-		
+
 		System.out.println("Data Provider Executing method name:-"+m.getName());
 		Class<? extends Object> className = m.getDeclaringClass();
 		/*System.out.println(className.getSimpleName());
@@ -34,39 +36,25 @@ public class Provider{
 		String sheetname ="Sheet1";
 		int rows = excel.getRowCount(sheetname);
 		int column = excel.getColumnCount(sheetname);
-		HashMap<String,HashMap<String,String>> maps = new HashMap<String,HashMap<String,String>>();
-		HashMap<String,String> map = new HashMap<String,String>();
-		List<String> firstRowColumnName = new LinkedList<String>();
-		System.out.println(rows);
-		for(int i=0;i<=rows;i++)
-		{
-			for(int j=0;j<1;j++)
-			{
-				System.out.println(excel.getCellData(i, 0,sheetname));
-				firstRowColumnName.add(excel.getCellData(i, 0,sheetname));
-			}
-		}
+		Map<String,List<Map<String,String>>> allData = new LinkedHashMap<>();
+		
 		for(int i=1;i<=rows;i++)
 		{
+			HashMap<String,String> map = new HashMap<>();
 			for(int j=1;j<column;j++)
 			{
 				//System.out.println(excel.getCellData(0, j,sheetname)+" : "+excel.getCellData(i, j,sheetname));
 				map.put(excel.getCellData(0, j,sheetname),excel.getCellData(i, j,sheetname));
 			}
-			maps.put(firstRowColumnName.get(i), map);
+			String methodName = excel.getCellData(i, 0,sheetname);
+			
+			if(allData.get(methodName) == null) {
+				allData.put(methodName, new ArrayList<Map<String,String>>());
+			}
+			allData.get(methodName).add(map);
 		}
 
-		/*for(String s : maps.keySet())
-		{
-			System.out.print(s+"\t");
-			for(String s1 : maps.get(s).keySet())
-			{
-				System.out.print(s1+":"+maps.get(s).get(s1)+",");
-			}
-			System.out.println("");
-		}*/
-		
-		if(!maps.containsKey(m.getName()))
+		if(!allData.containsKey(m.getName()))
 		{
 			Reporter.log("Test start onTestStart:- "+m.getName());
 			Test test = m.getAnnotation(Test.class);
@@ -75,23 +63,18 @@ public class Provider{
 			ExtentTestManager.getTest().log(LogStatus.INFO,"Test Going to be skipped",m.getName());
 			throw new SkipException("Test Case Skipped as not present in "+className.getSimpleName()+".xlsx"+" Excel");
 		}
+		
+		Object [][] arr = new Object [allData.get(m.getName()).size()][1];
 
-		//System.out.println("Row Count:-"+rows);
-		//System.out.println("Column Count:-"+column);
-
-		Object [][] arr = new String [rows][column];
-		//System.out.println(arr.length);
-		for(int i=1;i<3;i++)
+		for(int i=0;i<arr.length;i++)				//No. of Rows should be -1 as starting to fetch value from Second row.
 		{
-			for(int j=0;j<column;j++)
-			{
-				arr[i-1][j]=excel.getCellData(i, j,sheetname);
-			}
+			arr[i][0] = allData.get(m.getName()).get(i);
+			System.out.println(i+": "+arr[i][0].toString());
 		}
 		return arr;
 	}
 
-	/*@DataProvider
+	@DataProvider
 	public String[][] gInsert()
 	{
 		String spreadsheetId="14-7PNS2RzGrdvvx5VMBvRlZoyX_oHJ_JJtiPidrgbEs";
@@ -113,5 +96,5 @@ public class Provider{
 			}
 		}
 		return arr;
-	}*/
+	}
 }

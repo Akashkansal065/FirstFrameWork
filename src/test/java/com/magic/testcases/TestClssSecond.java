@@ -1,11 +1,12 @@
 package com.magic.testcases;
 
+import java.util.HashMap;
+
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
 import com.magic.base.Base;
 import com.magic.base.Provider;
-import com.magic.listners.CustomAssert;
 import com.magic.utilities.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -13,40 +14,27 @@ import com.relevantcodes.extentreports.LogStatus;
 public class TestClssSecond extends Base{
 
 	@Test(groups={"end"},dataProviderClass = Provider.class,dataProvider="insert",description = "sdfsdfds")
-	public void two(String first,String second,String third)
+	public void two(HashMap<String,String> table)
 	{
 		log.debug("First Test Case");
 		ExtentTestManager.getTest().log(LogStatus.INFO,"saanjadn");
 		System.out.println("Driver  Launched");
-		CustomAssert.AssertEqual(first,second,"Value are not same");
-		sendData("#lst-ib",first+second+third);
+		System.out.println(table.get("name"));
+		//CustomAssert.AssertEqual("first","second","Value are not same");
+		sendData("#lst-ib",table.get("name"));
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
-		CustomAssert.AssertEqual(first,third,"Value are not same");
-		//CustomAssert.AssertEqual(first,second,"Value are not same");
-		/*	String Text=driver.findElement(By.cssSelector(OR.getProperty("ALL"))).getText();
-		Assert.assertEquals("All",Text);
-		Assert.assertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))));
-		log.debug("Test NEd");
-		Assert.fail();
-		System.out.println("Fail");*/
 	}
 
 
-	@Test(groups={"end"},dataProviderClass = Provider.class,dataProvider="insert",description = "ddssd")
-	public void three(String first,String second,String third)
+	@Test(groups={"ends"},dataProviderClass = Provider.class,dataProvider="insert",description = "ddssd")
+	public void three(HashMap<String,String> table)
 	{
-		
-		log.debug("Second Test Case");
+		log.debug("First Test Case");
+		ExtentTestManager.getTest().log(LogStatus.INFO,"saanjadn");
 		System.out.println("Driver  Launched");
-		ExtentTestManager.getTest().log(LogStatus.INFO,first+second+third);
-		CustomAssert.AssertEqual(first,first,"Value are not same");
-		sendData("#lst-ib",first+second+third);
-		try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
-		CustomAssert.AssertEqual(first,first,"Value are not same");
-		//CustomAssert.AssertTrue(isElementPresent(By.cssSelector(OR.getProperty("ALL"))),"");
-		log.debug("Test NEd");
-		System.out.println("Fail");
+		System.out.println(table.get("name"));
+		//CustomAssert.AssertEqual("first","second","Value are not same");
+		sendData("#lst-ib",table.get("name"));
+		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 	}
-
-
 }
