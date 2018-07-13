@@ -1,5 +1,7 @@
 package com.magic.base;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,19 +12,22 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.magic.seleniumUtils.SeleniumContext;
 
 public class BrowserType {
 
-	static synchronized WebDriver browser()
+	static synchronized WebDriver browser() throws MalformedURLException
 	{
 		WebDriver driver;
 		String browserName = null;
+		String Grid = null;
 		if(browserName==null)
 		{
-			browserName=SeleniumContext.getTestLevelBROWSER_TYPE();
+			browserName = SeleniumContext.getTestLevelBROWSER_TYPE();
+			Grid = SeleniumContext.getSuiteLevelGRID();
 		}
 		System.out.println(browserName);
 		switch(browserName){
@@ -33,16 +38,25 @@ public class BrowserType {
 			chromeOptions.addArguments("test-type");
 			chromeOptions.addArguments("disable-infobars");
 			chromeOptions.addArguments("start-maximized");
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+			if(Grid.equals("ON"))
+			{
+				driver = new RemoteWebDriver(new URL("http://10.150.203.74:4444/wd/hub"), capabilities);
+			}
+			else
+			{
 			driver=new ChromeDriver(chromeOptions);
+			}
 			return driver;
 			/**********************************************************************************/
 		case "firefox":
-			System.setProperty("webdriver.gecko.driver","D://Jars//geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//geckodriver.exe");
 			driver = new FirefoxDriver();
 			return driver;
 			/**********************************************************************************/
 		case "iexplorer":
-			System.setProperty("webdriver.ie.driver","D://Jars//geckodriver.exe");
+			System.setProperty("webdriver.ie.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//geckodriver.exe");
 			driver = new InternetExplorerDriver();
 			return driver;
 			/**********************************************************************************/
@@ -53,7 +67,7 @@ public class BrowserType {
 			return driver;
 			/**********************************************************************************/
 		case "apple":
-			System.setProperty("webdriver.chrome.driver","D://Jars//chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
 
 			Map<String, String> mobileEmulation = new HashMap<String, String>();
 			mobileEmulation.put("deviceName", SeleniumContext.getTestLevelDEVICE_NAME());
@@ -62,14 +76,14 @@ public class BrowserType {
 			chromeappleOptions1.addArguments("disable-infobars");
 			chromeappleOptions1.setExperimentalOption("mobileEmulation", mobileEmulation);
 
-			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeappleOptions1);
+			DesiredCapabilities capabilities1 = DesiredCapabilities.chrome();
+			capabilities1.setCapability(ChromeOptions.CAPABILITY, chromeappleOptions1);
 
-			driver = new ChromeDriver(capabilities);
+			driver = new ChromeDriver(capabilities1);
 			return driver;
 			/**********************************************************************************/
 		case "iphonesize":
-			System.setProperty("webdriver.chrome.driver","D://Jars//chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
 
 			Map<String, Object> deviceMetrics = new HashMap<String, Object>();
 			deviceMetrics.put("width", 375);
@@ -91,7 +105,7 @@ public class BrowserType {
 
 			/**********************************************************************************/
 		case "androidsize":
-			System.setProperty("webdriver.chrome.driver","D://Jars//chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
 
 			Map<String, Object> androidMetrics = new HashMap<String, Object>();
 			androidMetrics.put("width", Integer.parseInt("375"));
@@ -112,7 +126,7 @@ public class BrowserType {
 			return driver;
 			/**********************************************************************************/
 		default:
-			System.setProperty("webdriver.chrome.driver","D://Jars//chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
 			ChromeOptions chromeOptions1 = new ChromeOptions();
 			chromeOptions1.addArguments("test-type");
 			chromeOptions1.addArguments("disable-infobars");

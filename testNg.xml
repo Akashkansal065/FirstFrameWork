@@ -16,6 +16,7 @@
 	</listeners>
 
 	<parameter name="deviceName" value="Apple iphone 6"></parameter>
+	<parameter name="Grid" value="OFF"></parameter>
 	<test name="Basic">
 		<parameter name="URL" value=""></parameter>
 		<parameter name="browserName" value="chrome"></parameter>

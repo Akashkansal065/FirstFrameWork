@@ -18,8 +18,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.magic.seleniumUtils.SeleniumContext;
+import com.magic.utilities.Constant;
 import com.magic.utilities.ExtentManager;
 import com.magic.utilities.ExtentTestManager;
+import com.magic.utilities.SendMail;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class Base {
@@ -79,6 +81,12 @@ public class Base {
 			driver.quit();*/
 		log.debug("END");
 		ExtentManager.getInstance().flush();
+		ExtentManager.move();
+		try {
+			SendMail.mail(Constant.to,Constant.cc,Constant.username,Constant.password,Constant.filename,Constant.Extentfilename);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void sendData(String locator,String Value)

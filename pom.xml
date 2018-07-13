@@ -112,6 +112,18 @@
 			<artifactId>google-api-services-sheets</artifactId>
 			<version>v4-rev493-1.23.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.http-client/google-http-client-jackson2 -->
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>1.23.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-java7</artifactId>
+			<version>1.15.0-rc</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client-assembly -->
 		<!--<dependency> <groupId>com.google.api-client</groupId> <artifactId>google-api-client-assembly</artifactId> 
 			<version>1.23.0</version> <type>pom</type> </dependency> -->
@@ -121,6 +133,7 @@
 
 	<build>
 		<plugins>
+			<!-- This is used for making maven compile to run forcefully on java 1.7 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -130,6 +143,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<!-- This is used for defining testng xml file -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
