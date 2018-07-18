@@ -30,8 +30,8 @@ public class TestClssSecond extends Base{
 	public void three(HashMap<String,String> table)
 	{
 		log.debug("First Test Case");
-		ExtentTestManager.getTest().log(LogStatus.INFO,"saanjadn");
-		System.out.println("Driver  Launched");
+		ExtentTestManager.getTest().log(LogStatus.INFO,"second");
+		System.out.println("Second group");
 		System.out.println(table.get("name"));
 		//CustomAssert.AssertEqual("first","second","Value are not same");
 		sendData("#lst-ib",table.get("name"));

@@ -16,16 +16,11 @@
 	</listeners>
 
 	<parameter name="deviceName" value="Apple iphone 6"></parameter>
-	<parameter name="Grid" value="OFF"></parameter>
 	
+
 	<test name="Basics">
 		<parameter name="URL" value=""></parameter>
-		<parameter name="browserName" value="chrome"></parameter>
-		<groups>
-			<run>
-				<include name="end"></include>
-			</run>
-		</groups>
+		<parameter name="browserName" value="firefox"></parameter>
 		<!-- <packages> <package name="com.magic.testcases"></package> </packages> -->
 		<classes>
 			<class name="com.magic.testcases.TestClssSecond"></class>

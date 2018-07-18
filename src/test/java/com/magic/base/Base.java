@@ -40,10 +40,10 @@ public class Base {
 	public Date date = new Date();
 
 	@BeforeSuite(alwaysRun=true)
-	public void Marvel(ITestContext context) throws IOException
+	public void Marvel() throws IOException
 	{
 		System.out.println("Before Suite");
-		SeleniumContext.context = context;
+		//SeleniumContext.context = context;
 		fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//config.properties");
 		config.load(fis);
 		log.debug("Config File Loaded");
@@ -59,8 +59,9 @@ public class Base {
 		//values = sheetAPI.getSpreadSheetRecords(spreadsheetId, range);
 	}
 	@BeforeMethod(alwaysRun=true)
-	public void captainAmerica(Method m)
+	public void captainAmerica(Method m,ITestContext context)
 	{
+		SeleniumContext.context = context;
 		System.out.println("Before Mehod Executing fo the method :- "+m.getName());
 		WebDriver driver;
 		driver = AllDrive.getWebDriver();
@@ -83,8 +84,9 @@ public class Base {
 		ExtentManager.getInstance().flush();
 		ExtentManager.move();
 		try {
-			SendMail.mail(Constant.to,Constant.cc,Constant.username,Constant.password,Constant.filename,Constant.Extentfilename);
-		} catch (IOException e) {
+			Thread.sleep(1);		
+			//SendMail.mail(Constant.to,Constant.cc,Constant.username,Constant.password,Constant.filename,Constant.Extentfilename);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

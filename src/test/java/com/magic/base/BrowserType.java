@@ -42,7 +42,7 @@ public class BrowserType {
 			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 			if(Grid.equals("ON"))
 			{
-				driver = new RemoteWebDriver(new URL("http://10.150.203.74:4444/wd/hub"), capabilities);
+				driver = new RemoteWebDriver(new URL("http://192.168.99.100:4444/wd/hub"), capabilities);
 			}
 			else
 			{
@@ -52,7 +52,15 @@ public class BrowserType {
 			/**********************************************************************************/
 		case "firefox":
 			System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//geckodriver.exe");
-			driver = new FirefoxDriver();
+			DesiredCapabilities capabilities3 = DesiredCapabilities.firefox();
+			if(Grid.equals("ON"))
+			{
+				driver = new RemoteWebDriver(new URL("http://192.168.99.100:4444/wd/hub"), capabilities3);
+			}
+			else
+			{
+			driver=new FirefoxDriver();
+			}
 			return driver;
 			/**********************************************************************************/
 		case "iexplorer":
