@@ -20,11 +20,9 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class Provider{
 
-
 	@DataProvider
 	public Object[][] insert(Method m)
 	{
-
 		System.out.println("Data Provider Executing method name:-"+m.getName());
 		Class<? extends Object> className = m.getDeclaringClass();
 		/*System.out.println(className.getSimpleName());

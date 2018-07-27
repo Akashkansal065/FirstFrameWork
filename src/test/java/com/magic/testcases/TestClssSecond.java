@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import com.magic.base.Base;
 import com.magic.base.Provider;
+import com.magic.pageobject.TestclassSecondobject;
 import com.magic.utilities.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -36,5 +37,10 @@ public class TestClssSecond extends Base{
 		//CustomAssert.AssertEqual("first","second","Value are not same");
 		sendData("#lst-ib",table.get("name"));
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		TestclassSecondobject obj = new TestclassSecondobject();
+		obj.gLogo.click();
+		obj.gSearch.click();
+		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+
 	}
 }

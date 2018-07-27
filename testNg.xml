@@ -6,7 +6,7 @@
 <!--Msite browserName = apple,iphonesize,androidsize -->
 <!--M deviceName = Apple iphone 6,Nexus 5 -->
 
-<suite name="DataDriven" parallel="tests" thread-count="5"
+<suite name="DataDriven" parallel="methods" thread-count="5"
 	verbose="1">
 	<listeners>
 		<listener class-name="com.magic.listners.CustomListner"></listener>
@@ -19,11 +19,11 @@
 	<parameter name="Grid" value="OFF"></parameter>
 	
 	<test name="Basics">
-		<parameter name="URL" value=""></parameter>
+		<parameter name="URL" value="https://www.google.com"></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
 		<groups>
 			<run>
-				<include name="end"></include>
+				<include name="ends"></include>
 			</run>
 		</groups>
 		<!-- <packages> <package name="com.magic.testcases"></package> </packages> -->
@@ -32,4 +32,5 @@
 			<!-- <class name="com.magic.testcases.TestClassFirst"></class> -->
 		</classes>
 	</test>
+	
 </suite>

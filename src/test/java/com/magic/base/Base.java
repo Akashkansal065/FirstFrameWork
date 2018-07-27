@@ -65,7 +65,7 @@ public class Base {
 		System.out.println("Before Mehod Executing fo the method :- "+m.getName());
 		WebDriver driver;
 		driver = AllDrive.getWebDriver();
-		driver.get("https://www.google.com");
+		driver.get(context.getCurrentXmlTest().getParameter("URL"));
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	@AfterMethod(alwaysRun=true)

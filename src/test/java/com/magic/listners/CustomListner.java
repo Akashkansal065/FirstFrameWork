@@ -111,7 +111,8 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 		{
 			if(!CustomAssert.map.isEmpty())
 			{
-				if(CustomAssert.map.get(Thread.currentThread().getId()) == false)
+				if(CustomAssert.map.get(Thread.currentThread().getId()) != null && 
+						CustomAssert.map.get(Thread.currentThread().getId()) == false)
 				{
 					System.out.println("Making the test Failed");
 					//Change Pass to failure and throw custom exception error
@@ -122,7 +123,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 						Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
 						List<Throwable> ls=CustomAssert.verificationFailuresMap.get(Thread.currentThread().getId());
 						int size = ls.size();
-						
+
 						if(size == 1)
 						{
 							ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail",ls.get(0));

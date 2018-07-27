@@ -64,8 +64,16 @@ public class BrowserType {
 			return driver;
 			/**********************************************************************************/
 		case "iexplorer":
-			System.setProperty("webdriver.ie.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//geckodriver.exe");
-			driver = new InternetExplorerDriver();
+			System.setProperty("webdriver.ie.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//IEDriverServer.exe");
+			if(Grid.equals("ON"))
+			{
+				DesiredCapabilities capabilities4 = DesiredCapabilities.internetExplorer();
+				driver = new RemoteWebDriver(new URL("http://192.168.99.100:4444/wd/hub"), capabilities4);
+			}
+			else
+			{
+			driver=new InternetExplorerDriver();
+			}
 			return driver;
 			/**********************************************************************************/
 		case "safari":
