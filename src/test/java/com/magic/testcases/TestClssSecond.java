@@ -24,6 +24,12 @@ public class TestClssSecond extends Base{
 		//CustomAssert.AssertEqual("first","second","Value are not same");
 		sendData("#lst-ib",table.get("name"));
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		TestclassSecondobject obj = new TestclassSecondobject();
+		//obj.gLogo.click();
+		obj.logo();
+		obj.search();
+		//obj.gSearch.click();
+		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 
 
@@ -38,9 +44,11 @@ public class TestClssSecond extends Base{
 		sendData("#lst-ib",table.get("name"));
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		TestclassSecondobject obj = new TestclassSecondobject();
-		obj.gLogo.click();
-		obj.gSearch.click();
+		//obj.click(obj.gLogo);
+		//obj.gLogo.click();
+		obj.logo();
+		obj.search();
+		//obj.gSearch.click();
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
-
 	}
 }

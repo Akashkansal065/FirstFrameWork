@@ -21,11 +21,11 @@
 	<test name="Basics">
 		<parameter name="URL" value="https://www.google.com"></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
-		<groups>
+		<!-- <groups>
 			<run>
 				<include name="ends"></include>
 			</run>
-		</groups>
+		</groups> -->
 		<!-- <packages> <package name="com.magic.testcases"></package> </packages> -->
 		<classes>
 			<class name="com.magic.testcases.TestClssSecond"></class>

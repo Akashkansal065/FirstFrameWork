@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -44,9 +45,9 @@ public class Base {
 	{
 		System.out.println("Before Suite");
 		//SeleniumContext.context = context;
-		fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//config.properties");
-		config.load(fis);
-		log.debug("Config File Loaded");
+		//fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//config.properties");
+		//config.load(fis);
+		//log.debug("Config File Loaded");
 		//fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//resources//properties//OR.properties");
 		//OR.load(fis);
 		//log.debug("OR file Loaded");
@@ -75,7 +76,7 @@ public class Base {
 	}
 
 	@AfterSuite(alwaysRun=true)
-	public void Thanos()
+	public void Thanos(ITestContext context)
 	{
 		AllDrive.cleanUp();
 		/*if(driver!=null)
@@ -89,6 +90,10 @@ public class Base {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("fffffffffffffffffffffffffffffff"+"Passed:  "+context.getAllTestMethods().length);
+		System.out.println("fffffffffffffffffffffffffffffff"+"Passed:  "+context.getPassedTests().size());
+		System.out.println("fffffffffffffffffffffffffffffff"+"failed:  "+context.getFailedTests().size());
+		System.out.println("fffffffffffffffffffffffffffffff"+"skipped: "+context.getSkippedTests().size());
 	}
 
 	public void sendData(String locator,String Value)
