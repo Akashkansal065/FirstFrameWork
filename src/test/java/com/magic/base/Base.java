@@ -67,7 +67,7 @@ public class Base {
 		WebDriver driver;
 		driver = AllDrive.getWebDriver();
 		driver.get(context.getCurrentXmlTest().getParameter("URL"));
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	@AfterMethod(alwaysRun=true)
 	public void ironMan()
@@ -90,7 +90,7 @@ public class Base {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("fffffffffffffffffffffffffffffff"+"Passed:  "+context.getAllTestMethods().length);
+		System.out.println("fffffffffffffffffffffffffffffff"+"Total:  "+context.getAllTestMethods().length);
 		System.out.println("fffffffffffffffffffffffffffffff"+"Passed:  "+context.getPassedTests().size());
 		System.out.println("fffffffffffffffffffffffffffffff"+"failed:  "+context.getFailedTests().size());
 		System.out.println("fffffffffffffffffffffffffffffff"+"skipped: "+context.getSkippedTests().size());

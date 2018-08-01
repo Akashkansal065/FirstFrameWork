@@ -44,14 +44,14 @@ public class CustomAssert {
 	private static void addVerificationFailure(final Throwable e) {
 		map.put(Thread.currentThread().getId(), false);
 		addVerificationFailures(Thread.currentThread().getId(), e);
-		ExtentTestManager.getTest().log(LogStatus.FAIL,"!!!FAILURE ALERT!!! - Assertion Failure: " + e.getMessage());
+		ExtentTestManager.getTest().log(LogStatus.WARNING,"!!!FAILURE ALERT!!! - Assertion Failure: " + e.getMessage());
 		System.out.println("Inside Failure Assert");
 	}
 
 	private static void addVerificationFailure(final Throwable e,String Actual,String Expected) {
 		map.put(Thread.currentThread().getId(), false);
 		addVerificationFailures(Thread.currentThread().getId(), e);
-		ExtentTestManager.getTest().log(LogStatus.FAIL,Actual+" Not Matched with "+Expected,"!!!FAILURE ALERT!!! - Assertion Failure: " + e.getMessage());
+		ExtentTestManager.getTest().log(LogStatus.WARNING,Actual+" Not Matched with "+Expected,"!!!FAILURE ALERT!!! - Assertion Failure: " + e.getMessage());
 		System.out.println("Inside Failure Assert");
 	}
 

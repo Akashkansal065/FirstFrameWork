@@ -23,13 +23,13 @@ public class TestClssSecond extends Base{
 		System.out.println(table.get("name"));
 		//CustomAssert.AssertEqual("first","second","Value are not same");
 		sendData("#lst-ib",table.get("name"));
-		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		TestclassSecondobject obj = new TestclassSecondobject();
 		//obj.gLogo.click();
 		obj.logo();
 		obj.search();
 		//obj.gSearch.click();
-		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 
 
@@ -42,13 +42,13 @@ public class TestClssSecond extends Base{
 		System.out.println(table.get("name"));
 		//CustomAssert.AssertEqual("first","second","Value are not same");
 		sendData("#lst-ib",table.get("name"));
-		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		TestclassSecondobject obj = new TestclassSecondobject();
 		//obj.click(obj.gLogo);
 		//obj.gLogo.click();
 		obj.logo();
 		obj.search();
 		//obj.gSearch.click();
-		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 }

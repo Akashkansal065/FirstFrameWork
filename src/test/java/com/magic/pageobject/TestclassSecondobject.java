@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import com.magic.base.GlobalDriver;
 
@@ -14,7 +15,7 @@ public class TestclassSecondobject extends GlobalDriver{
 
 	public TestclassSecondobject()
 	{
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AjaxElementLocatorFactory(driver, 3), this);
 	}
 
 	public void logo()
