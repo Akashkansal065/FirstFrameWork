@@ -15,8 +15,8 @@ public class DBManager {
 
 	public Connection createConnectionForProperty()
 	{
-		String port="3311/";
-		String localIp = "jdbc:mysql://192.168.207.178:";
+		String port=":3311/";
+		String localIp = "jdbc:mysql://192.168.207.178";
 		String username = "qc_akashkansal";
 		String password = "lasnakhsakaY@720";
 		String Schema = "property";
@@ -24,9 +24,9 @@ public class DBManager {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-
-			con = DriverManager.getConnection(localIp+port+Schema+","+username+","+password);
-		} catch (ClassNotFoundException | SQLException e) {
+			con = DriverManager.getConnection(localIp+port+Schema,username,password);
+		}
+		catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		if(con==null)
@@ -47,7 +47,7 @@ public class DBManager {
 		
 		try {
 			stm = c.createStatement();
-			rs = stm.executeQuery(query+"limit 1");
+			rs = stm.executeQuery(query+" limit 1");
 			rowData = rs.getMetaData();
 			int column = rowData.getColumnCount();
 			while (rs.next())
