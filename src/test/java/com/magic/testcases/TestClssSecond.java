@@ -45,10 +45,10 @@ public class TestClssSecond extends Base{
 		System.out.println(table.get("name"));
 		//CustomAssert.AssertEqual("first","second","Value are not same");
 		sendData("#lst-ib",table.get("name"));
-		DBManager db = new DBManager();
-		String query = "SELECT * FROM property.ilp_client_detail";
-		Map<String,String> data= db.executeQuerySRow(query);
-		System.out.println("ssssssssssssssssss"+""+data.get("to_email_ids")+"");
+		//DBManager db = new DBManager();
+		//String query = "SELECT * FROM property.ilp_client_detail";
+		//Map<String,String> data= db.executeQuerySRow(query);
+		//System.out.println("ssssssssssssssssss"+""+data.get("to_email_ids")+"");
 		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		//TestclassSecondobject obj = new TestclassSecondobject();
 		//obj.click(obj.gLogo);
