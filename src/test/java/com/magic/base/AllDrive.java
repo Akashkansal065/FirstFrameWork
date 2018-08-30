@@ -46,6 +46,8 @@ public class AllDrive {
                 driver = null;
             }
         driverSession.remove();
+        System.out.println("Driver gets cleaned");
+        
     }
 
 }

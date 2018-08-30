@@ -17,6 +17,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
 
 import com.magic.seleniumUtils.SeleniumContext;
 import com.magic.utilities.Constant;
@@ -68,6 +69,11 @@ public class Base {
 		driver = AllDrive.getWebDriver();
 		driver.get(context.getCurrentXmlTest().getParameter("URL"));
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		Class<? extends Object> className = m.getDeclaringClass();
+		Test test = m.getAnnotation(Test.class);
+		ExtentTestManager.startTest(className.getSimpleName()+"."+m.getName().toUpperCase(),test.description());
+		ExtentTestManager.getTest().assignCategory(className.getSimpleName());
+		ExtentTestManager.getTest().log(LogStatus.INFO,"onTestStart" ,m.getName());
 	}
 	@AfterMethod(alwaysRun=true)
 	public void ironMan()

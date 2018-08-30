@@ -13,6 +13,7 @@ import org.testng.Reporter;
 import org.testng.internal.TestResult;
 
 import com.magic.base.AllDrive;
+import com.magic.seleniumUtils.SeleniumContext;
 import com.magic.utilities.ExtentManager;
 import com.magic.utilities.ExtentTestManager;
 import com.magic.utilities.ScreenShot;
@@ -24,19 +25,22 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	@Override
 	public void onTestStart(ITestResult testResult) {
 		System.out.println("On test Start Method Called");
-		Reporter.log("Test start onTestStart:- "+testResult.getMethod().getMethodName());
-		ExtentTestManager.startTest(testResult.getTestClass().getName()+"."+testResult.getName().toUpperCase(),testResult.getMethod().getDescription());
+		SeleniumContext.context = testResult.getTestContext();
+		/*ExtentTestManager.startTest(testResult.getTestClass().getName()+"."+testResult.getName().toUpperCase(),testResult.getMethod().getDescription());
 		ExtentTestManager.getTest().assignCategory(testResult.getTestClass().getName());
-		ExtentTestManager.getTest().log(LogStatus.INFO,"onTestStart" ,testResult.getName());
+		ExtentTestManager.getTest().log(LogStatus.INFO,"onTestStart" ,testResult.getName());*/
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult testResult) {
+
+		if(ExtentManager.extent !=null && AllDrive.driverSession.get() !=null)
+		{
+			ExtentTestManager.getTest().log(LogStatus.PASS, testResult.getName().toUpperCase()+"Success");
+			ExtentTestManager.endTest();
+			ExtentManager.getInstance().flush();
+		}
 		AllDrive.cleanUp();
-		Reporter.log("Test Success:- "+testResult.getMethod().getMethodName());
-		ExtentTestManager.getTest().log(LogStatus.PASS, testResult.getName().toUpperCase()+"Success");
-		ExtentTestManager.endTest();
-		ExtentManager.getInstance().flush();
 	}
 
 
@@ -44,51 +48,61 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	public void onTestFailure(ITestResult testResult) {
 		System.out.println("Test Failed on TEST FAILURE");
 		System.setProperty("org.uncommons.reportng.escape-output", "false");
-		String shotName = null;
-		try {
-			System.out.println("Try to capture Screen Shot");
-			shotName = ScreenShot.ShotCaptured(AllDrive.getWebDriver(), System.getProperty("user.dir")+"/Reports/extent_reports/"+ 
-					(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
-		}catch (IOException e) {e.printStackTrace();}
-
-		if (testResult.getMethod().getRetryAnalyzer() != null) {
-			RetryAnalyzer retryAnalyzer = (RetryAnalyzer)testResult.getMethod().getRetryAnalyzer();
-
-			if(retryAnalyzer.isRetryAvailable()) {
-				testResult.setStatus(ITestResult.SKIP);
-				ExtentTestManager.getTest().log(LogStatus.SKIP,ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
-			} else {
-				testResult.setStatus(ITestResult.FAILURE);
-				ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
-			}
-			//Reporter.setCurrentTestResult(testResult);
-		}
-		//ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
-		Reporter.log("Test complete");
-		Reporter.log("<a target=\"blank\" href="+shotName+">Click</a>");
-		AllDrive.cleanUp();
-		ExtentTestManager.endTest();
-		ExtentManager.getInstance().flush();
-	}
-
-	@Override
-	public void onTestSkipped(ITestResult testResult) {
-		Reporter.getCurrentTestResult().setThrowable(testResult.getThrowable());
-		System.out.println("Test Skipped:- "+testResult.getMethod().getMethodName());
-		if(AllDrive.getWebDriver() !=null)
+		/*if(AllDrive.driverSession.get() !=null)
 		{
 			String shotName = null;
 			try {
 				System.out.println("Try to capture Screen Shot");
 				shotName = ScreenShot.ShotCaptured(AllDrive.getWebDriver(), System.getProperty("user.dir")+"/Reports/extent_reports/"+ 
 						(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
+			}catch (IOException e) {e.printStackTrace();}
+			//ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+		}*/
+
+		if (testResult.getMethod().getRetryAnalyzer() != null) {
+			RetryAnalyzer retryAnalyzer = (RetryAnalyzer)testResult.getMethod().getRetryAnalyzer();
+
+			if(retryAnalyzer.isRetryAvailable()) {
+				testResult.setStatus(ITestResult.SKIP);
+				//ExtentTestManager.getTest().log(LogStatus.SKIP,ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+			} else {
+				testResult.setStatus(ITestResult.FAILURE);
+				//ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+			}
+			//Reporter.setCurrentTestResult(testResult);
+		}
+		//Reporter.log("Test complete");
+		//Reporter.log("<a target=\"blank\" href="+shotName+">Click</a>");
+
+		if(ExtentManager.extent !=null && AllDrive.driverSession.get() !=null){
+			ExtentTestManager.endTest();
+			ExtentManager.getInstance().flush();
+		}
+		AllDrive.cleanUp();
+	}
+
+	@Override
+	public void onTestSkipped(ITestResult testResult) {
+
+		Reporter.getCurrentTestResult().setThrowable(testResult.getThrowable());
+		System.out.println("Test Skipped:- "+testResult.getMethod().getMethodName());
+		if(AllDrive.driverSession.get() !=null)
+		{
+			String shotName = null;
+			try {
+				System.out.println("Try to capture Screen Shot onTestSkipped");
+				shotName = ScreenShot.ShotCaptured(AllDrive.getWebDriver(), System.getProperty("user.dir")+"/Reports/extent_reports/"+ 
+						(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
 				ExtentTestManager.getTest().log(LogStatus.SKIP,ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
 			}catch (IOException e) {e.printStackTrace();}
 		}
-		ExtentTestManager.getTest().log(LogStatus.SKIP,"Test Gets Skipped on ''onTestSkipped'' ");
+
+		if(ExtentManager.extent !=null && AllDrive.driverSession.get() !=null){
+			ExtentTestManager.getTest().log(LogStatus.SKIP,"Test Gets Skipped on ''onTestSkipped'' ");
+			ExtentTestManager.endTest();
+			ExtentManager.getInstance().flush();
+		}
 		AllDrive.cleanUp();
-		ExtentTestManager.endTest();
-		ExtentManager.getInstance().flush();
 	}
 
 	@Override
@@ -114,7 +128,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
 
 		Reporter.setCurrentTestResult(testResult);
-		
+
 		System.out.println("After Invocation about to End Following method:- "+method.getTestMethod().getMethodName() + "   " + testResult);
 
 		// Handle Soft CustomAssertion
@@ -125,14 +139,15 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 				if(CustomAssert.map.get(Thread.currentThread().getId()) != null && CustomAssert.map.get(Thread.currentThread().getId()) == false)
 				{
 					System.out.println("CustomAssert.map is not empty and current thread"+CustomAssert.map.size());
-					
+
 					if (testResult.getMethod().getRetryAnalyzer() != null) {
 
 						System.out.println("Retry Present");
 						System.out.println("Current test result status:- "+testResult.getStatus());
-						
+
 						RetryAnalyzer retryAnalyzer = (RetryAnalyzer) testResult.getMethod().getRetryAnalyzer();
 
+						/*When test gets the Elemnet not found exception or any other except assertException*/
 						if(testResult.getStatus()==ITestResult.FAILURE)
 						{
 							ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
@@ -140,21 +155,27 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 							tc.getPassedTests().getAllMethods().remove(Reporter.getCurrentTestResult().getMethod());
 
 							System.out.println("Addiding logs in failed test");
-							
+
 							//Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
 							List<Throwable> ls=CustomAssert.verificationFailuresMap.get(Thread.currentThread().getId());
 							int size = ls.size();
 
 							if(size == 1)
 							{
-								ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail",ls.get(0));
+								if(ExtentManager.extent !=null)
+								{
+									ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail",ls.get(0));
+								}
 								Reporter.getCurrentTestResult().setThrowable(ls.get(0));
 							}
 							if(size > 1)
 							{
 								for(int i=0;i<size;i++)
 								{
-									ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail :- "+i,ls.get(i));
+									if(ExtentManager.extent !=null)
+									{
+										ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail :- "+i,ls.get(i));
+									}
 									Reporter.getCurrentTestResult().setThrowable(ls.get(i));
 								}
 							}
@@ -165,13 +186,20 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 							CustomAssert.verificationFailuresMap.clear();
 							//testResult.setStatus(TestResult.FAILURE);
 						}
+						/*When test have multiple or single Custom assert failure
+						 * 
+						 * In that case the result of the test is by default pass
+						 * but now we have to fail the test explicitly
+						 * and add the failure in the report
+						 * 
+						 * */
 						if(testResult.getStatus()==ITestResult.SUCCESS)
 						{
 							//Change Pass to failure and throw custom exception error
 							ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
 							tc.getPassedTests().addResult(testResult, Reporter.getCurrentTestResult().getMethod());
 							tc.getPassedTests().getAllMethods().remove(Reporter.getCurrentTestResult().getMethod());
-							
+
 							if(retryAnalyzer.isRetryAvailable())
 							{
 								System.out.println("Making the test Skip as retry available");
@@ -181,14 +209,20 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 								if(size==1)
 								{
 									Reporter.getCurrentTestResult().setThrowable(ls.get(0));
-									ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail", ls.get(0));
+									if(ExtentManager.extent !=null)
+									{
+										ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail", ls.get(0));
+									}
 								}
 								if(size > 1)
 								{
 									for(int i=0;i<ls.size();i++)
 									{
 										Reporter.getCurrentTestResult().setThrowable(ls.get(i));
-										ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail multiple", ls.get(i));
+										if(ExtentManager.extent !=null)
+										{
+											ExtentTestManager.getTest().log(LogStatus.WARNING,"Assert Fail multiple", ls.get(i));
+										}
 									}
 								}
 							}
@@ -201,14 +235,20 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 
 								if(size == 1)
 								{
-									ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail",ls.get(0));
+									if(ExtentManager.extent !=null)
+									{
+										ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail",ls.get(0));
+									}
 									Reporter.getCurrentTestResult().setThrowable(ls.get(0));
 								}
 								if(size > 1)
 								{
 									for(int i=0;i<size;i++)
 									{
-										ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail :- "+i,ls.get(i));
+										if(ExtentManager.extent !=null)
+										{
+											ExtentTestManager.getTest().log(LogStatus.FAIL,"Assert Fail :- "+i,ls.get(i));
+										}
 										Reporter.getCurrentTestResult().setThrowable(ls.get(i));
 									}
 								}
@@ -220,7 +260,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 							CustomAssert.verificationFailuresMap.clear();
 							testResult.setStatus(TestResult.FAILURE);
 						}
-						
+
 					}
 				}
 			}

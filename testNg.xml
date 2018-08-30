@@ -6,8 +6,7 @@
 <!--Msite browserName = apple,iphonesize,androidsize -->
 <!--M deviceName = Apple iphone 6,Nexus 5 -->
 
-<suite name="DataDriven" parallel="methods" thread-count="5"
-	verbose="1">
+<suite name="DataDriven" parallel="methods" thread-count="10" verbose="10">
 	<listeners>
 		<listener class-name="com.magic.listners.CustomListner"></listener>
 		<listener class-name="com.magic.listners.AnnotationTransformer"></listener>
@@ -17,20 +16,28 @@
 
 	<parameter name="deviceName" value="Apple iphone 6"></parameter>
 	<parameter name="Grid" value="OFF"></parameter>
+	<parameter name="GURL" value="http://192.168.99.100:12345/wd/hub"></parameter>
 	
-	<test name="Basics">
+	<!-- <test name="Basics">
 		<parameter name="URL" value="https://www.google.com"></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
-		<!-- <groups>
+		<groups>
 			<run>
 				<include name="ends"></include>
 			</run>
-		</groups> -->
-		<!-- <packages> <package name="com.magic.testcases"></package> </packages> -->
+		</groups>
 		<classes>
+			<class name="RunningSteps.TestRunner"></class>
 			<class name="com.magic.testcases.TestClssSecond"></class>
-			<!-- <class name="com.magic.testcases.TestClassFirst"></class> -->
+			<class name="RunningSteps.TestRunners"></class>
 		</classes>
-	</test>
-	
+	</test> -->
+	<test name="Basics2">
+		<parameter name="URL" value="https://www.google.com"></parameter>
+		<parameter name="browserName" value="firefox"></parameter>
+		<classes>
+			<class name="RunningSteps.TestRunners"></class>
+			<class name="com.magic.testcases.TestClssSecond"></class>
+		</classes>
+	</test>	
 </suite>

@@ -1,2 +1,0 @@
-# FirstFrameWork
-Selenium Basic FrameWork 

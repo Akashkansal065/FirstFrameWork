@@ -29,7 +29,7 @@ public class BrowserType {
 			browserName = SeleniumContext.getTestLevelBROWSER_TYPE();
 			Grid = SeleniumContext.getSuiteLevelGRID();
 		}
-		System.out.println(browserName);
+		System.out.println("browserName---:"+browserName);
 		switch(browserName){
 
 		case "chrome":
@@ -42,7 +42,7 @@ public class BrowserType {
 			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 			if(Grid.equals("ON"))
 			{
-				driver = new RemoteWebDriver(new URL("http://192.168.99.100:12345/wd/hub"), capabilities);
+				driver = new RemoteWebDriver(new URL(SeleniumContext.getSuiteLevelGRID_URL()), capabilities);
 			}
 			else
 			{
@@ -55,7 +55,7 @@ public class BrowserType {
 			DesiredCapabilities capabilities3 = DesiredCapabilities.firefox();
 			if(Grid.equals("ON"))
 			{
-				driver = new RemoteWebDriver(new URL("http://192.168.99.100:12345/wd/hub"), capabilities3);
+				driver = new RemoteWebDriver(new URL(SeleniumContext.getSuiteLevelGRID_URL()), capabilities3);
 			}
 			else
 			{
@@ -68,7 +68,7 @@ public class BrowserType {
 			if(Grid.equals("ON"))
 			{
 				DesiredCapabilities capabilities4 = DesiredCapabilities.internetExplorer();
-				driver = new RemoteWebDriver(new URL("http://192.168.99.100:4444/wd/hub"), capabilities4);
+				driver = new RemoteWebDriver(new URL(SeleniumContext.getSuiteLevelGRID_URL()), capabilities4);
 			}
 			else
 			{
