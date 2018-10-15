@@ -35,7 +35,7 @@ public class Provider{
 		int rows = excel.getRowCount(sheetname);
 		int column = excel.getColumnCount(sheetname);
 		Map<String,List<Map<String,String>>> allData = new LinkedHashMap<>();
-		
+
 		for(int i=1;i<=rows;i++)
 		{
 			HashMap<String,String> map = new HashMap<>();
@@ -45,7 +45,7 @@ public class Provider{
 				map.put(excel.getCellData(0, j,sheetname),excel.getCellData(i, j,sheetname));
 			}
 			String methodName = excel.getCellData(i, 0,sheetname);
-			
+
 			if(allData.get(methodName) == null) {
 				allData.put(methodName, new ArrayList<Map<String,String>>());
 			}
@@ -61,7 +61,7 @@ public class Provider{
 			ExtentTestManager.getTest().log(LogStatus.INFO,"Test Going to be skipped",m.getName());
 			throw new SkipException("Test Case Skipped as not present in "+className.getSimpleName()+".xlsx"+" Excel");
 		}
-		
+
 		Object [][] arr = new Object [allData.get(m.getName()).size()][1];
 
 		for(int i=0;i<arr.length;i++)				//No. of Rows should be -1 as starting to fetch value from Second row.
@@ -94,5 +94,34 @@ public class Provider{
 			}
 		}
 		return arr;
+	}
+	public Map<String,List<Map<String,String>>> restData()
+	{
+
+		//System.out.println("Rest Excel");
+		ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//Rest.xlsx");
+		String sheetname ="Sheet1";
+		int rows = excel.getRowCount(sheetname);
+		//int column = excel.getColumnCount(sheetname);
+		Map<String,List<Map<String,String>>> allData = new LinkedHashMap<>();
+
+		for(int i=1;i<=rows;i++)
+		{
+			HashMap<String,String> map = new HashMap<>();
+			for(int j=1;j<2;j++)
+			{
+				//System.out.println(excel.getCellData(i, 1,sheetname)+" : "+excel.getCellData(i, 2,sheetname));
+				map.put(excel.getCellData(i, 1,sheetname),excel.getCellData(i, 2,sheetname));
+			}
+			String methodName = excel.getCellData(i, 0,sheetname);
+			//System.out.println(methodName);
+
+			if(allData.get(methodName) == null) {
+				allData.put(methodName, new ArrayList<Map<String,String>>());
+			}
+			allData.get(methodName).add(map);
+		}
+		return allData;
+
 	}
 }

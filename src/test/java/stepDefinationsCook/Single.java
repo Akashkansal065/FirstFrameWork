@@ -8,6 +8,7 @@ import java.util.Set;
 import org.testng.Assert;
 
 import com.magic.pageobject.TestclassSecondobject;
+import com.magic.utilities.DBManager;
 import com.vimalselvam.cucumber.listener.Reporter;
 
 import cucumber.api.DataTable;
@@ -17,10 +18,10 @@ import cucumber.api.java.en.Then;
 
 public class Single {
 	TestclassSecondobject obj = new TestclassSecondobject();
-	
+	DBManager db = new DBManager();
 	@Given("^Go to https://www\\.google\\.com$")
 	public void go_to_https_www_google_com() throws Throwable {
-		System.out.println(" aasdsaddsaa");
+		System.out.println("aasdsaddsaa");
 		Reporter.addStepLog("Step Log message adsadsadsa here");
 	}
 
@@ -36,6 +37,11 @@ public class Single {
 	@Then("^wait for page load$")
 	public void wait_for_page_load() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
+		String query = "SELECT * FROM property.ilp_client_detail";
+		Map<String,String> data= db.executeQuerySRow(query);
+		System.out.println("ssssssssssssssssss"+""+data.get("to_email_ids")+"");
+		
+		
 		Reporter.addStepLog("a Log message goes here");
 	}
 

@@ -30,7 +30,8 @@ public class TestClssSecond extends Base{
 		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		TestclassSecondobject obj = new TestclassSecondobject();
 		FiestObject obj1 = new FiestObject();
-		obj1.gLogo.click();
+		obj.click(obj1.textEnter);
+		obj.textEnter.sendKeys(table.get("name"));
 		obj.logo();
 		obj.search();
 		obj1.gSearch.click();
@@ -52,6 +53,7 @@ public class TestClssSecond extends Base{
 		//Map<String,String> data= db.executeQuerySRow(query);
 		//System.out.println("ssssssssssssssssss"+""+data.get("to_email_ids")+"");
 		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
+		//Assert.fail();
 		TestclassSecondobject obj = new TestclassSecondobject();
 		obj.click(obj.gLogo);
 		obj.gLogo.click();

@@ -37,14 +37,37 @@ public class DBManager {
 		return con;
 	}
 
+	public void executeUpdate()
+	{
+		String Query1 = "update property.tpmvt set ATTEMPTCOUNT=0 where mvtmobile IN (9891699692,9953902086,8826399999, 8963485946, 8377974608, 7065524041, 7065524043, 9977007799, 9717787952, 9650584940, 7053549558, 9999999919, 8979921513,8979921510,8979921511,8979921512,8979921514,8979921515,8979921513)";
+		String Query2 = "update tpappnotifconfig set NCNOTIFFREQ=0  where NCAPPCNDRFNUM IN (9891699692,9953902086,8826399999, 8963485946, 8377974608, 7065524041, 7065524043, 9977007799, 9717787952, 9650584940, 7053549558, 9999999919, 8979921513,8979921510,8979921511,8979921512,8979921514,8979921515,8979921513)";
+		String Query3 = "update tpubi_login_attempt set ubilafailcount=0  where UbiLAUbiLogin IN ('rishproperty','vaibhuec@gmail.com','abc@abc.abc','lheeranandani@hotmail.com','mbmobiletesters@gmail.com','sanity20aug@mailinator.com','sanity21aug@mailinator.com','magic.aamir@gmail.com','testing4adobe@gmail.com','kansalb@mailinator.com','ashulivep@gmail.com','magicbricks@mb.com','temp_temp_8189199087@indiatimes.com','akash.kansal@yopmail.com')";
+		Connection c = createConnectionForProperty();
+		Statement stm = null;
+		try {
+			stm = c.createStatement();
+			stm.executeUpdate(Query1);
+			stm.executeUpdate(Query2);
+			stm.executeUpdate(Query3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Map<String,String> executeQuerySRow(String query)
 	{
+		System.out.println("dbdbdbdbdbdbdbdbdbdbdbdbdbddbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdb");
+		System.out.println(query);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+		}
 		Connection c = createConnectionForProperty();
 		Statement stm = null;
 		ResultSet rs = null;
 		ResultSetMetaData rowData;
 		Map<String,String> map = null;
-		
+
 		try {
 			stm = c.createStatement();
 			rs = stm.executeQuery(query+" limit 1");
@@ -128,11 +151,11 @@ public class DBManager {
 		System.out.println("Connection Closed");
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		DBManager db = new DBManager();
 		String Query ="select * from tpsbm order by createdate desc";
 		db.executeQuerySRow(Query);
-	}
+	}*/
 
 }

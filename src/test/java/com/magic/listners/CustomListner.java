@@ -13,6 +13,7 @@ import org.testng.Reporter;
 import org.testng.internal.TestResult;
 
 import com.magic.base.AllDrive;
+import com.magic.base.Base;
 import com.magic.seleniumUtils.SeleniumContext;
 import com.magic.utilities.ExtentManager;
 import com.magic.utilities.ExtentTestManager;
@@ -24,8 +25,8 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	public Date date =new Date();
 	@Override
 	public void onTestStart(ITestResult testResult) {
-		System.out.println("On test Start Method Called");
-		SeleniumContext.context = testResult.getTestContext();
+		System.out.println("On test Start Method Called used in Cucumber");
+		SeleniumContext.context = testResult.getTestContext();		//This is for Cucumber 
 		/*ExtentTestManager.startTest(testResult.getTestClass().getName()+"."+testResult.getName().toUpperCase(),testResult.getMethod().getDescription());
 		ExtentTestManager.getTest().assignCategory(testResult.getTestClass().getName());
 		ExtentTestManager.getTest().log(LogStatus.INFO,"onTestStart" ,testResult.getName());*/
@@ -34,11 +35,13 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	@Override
 	public void onTestSuccess(ITestResult testResult) {
 
-		if(ExtentManager.extent !=null && AllDrive.driverSession.get() !=null)
+		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO"))
 		{
+			System.out.println("onTestSuccessonTestSuccessonTestSuccessonTestSuccessonTestSuccessonTestSuccess");
 			ExtentTestManager.getTest().log(LogStatus.PASS, testResult.getName().toUpperCase()+"Success");
 			ExtentTestManager.endTest();
 			ExtentManager.getInstance().flush();
+			Base.RestReset();
 		}
 		AllDrive.cleanUp();
 	}
@@ -48,7 +51,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	public void onTestFailure(ITestResult testResult) {
 		System.out.println("Test Failed on TEST FAILURE");
 		System.setProperty("org.uncommons.reportng.escape-output", "false");
-		/*if(AllDrive.driverSession.get() !=null)
+		if(AllDrive.driverSession.get() !=null)
 		{
 			String shotName = null;
 			try {
@@ -56,8 +59,14 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 				shotName = ScreenShot.ShotCaptured(AllDrive.getWebDriver(), System.getProperty("user.dir")+"/Reports/extent_reports/"+ 
 						(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
 			}catch (IOException e) {e.printStackTrace();}
-			//ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
-		}*/
+			ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+		}
+		if(SeleniumContext.getTestLevelDriverRequired().equals("NO"))
+		{
+			ExtentTestManager.getTest().log(LogStatus.INFO,"REQUEST",AllDrive.getWriter().toString());
+			ExtentTestManager.getTest().log(LogStatus.FAIL,"Exception",testResult.getThrowable());
+		}
+
 
 		if (testResult.getMethod().getRetryAnalyzer() != null) {
 			RetryAnalyzer retryAnalyzer = (RetryAnalyzer)testResult.getMethod().getRetryAnalyzer();
@@ -74,9 +83,12 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 		//Reporter.log("Test complete");
 		//Reporter.log("<a target=\"blank\" href="+shotName+">Click</a>");
 
-		if(ExtentManager.extent !=null && AllDrive.driverSession.get() !=null){
+		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO"))
+		{
+			System.out.println("After Test Failed");
 			ExtentTestManager.endTest();
 			ExtentManager.getInstance().flush();
+			Base.RestReset();
 		}
 		AllDrive.cleanUp();
 	}
@@ -85,6 +97,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	public void onTestSkipped(ITestResult testResult) {
 
 		Reporter.getCurrentTestResult().setThrowable(testResult.getThrowable());
+		System.out.println("Test Skipped");
 		System.out.println("Test Skipped:- "+testResult.getMethod().getMethodName());
 		if(AllDrive.driverSession.get() !=null)
 		{
@@ -96,18 +109,24 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 				ExtentTestManager.getTest().log(LogStatus.SKIP,ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
 			}catch (IOException e) {e.printStackTrace();}
 		}
+		if(SeleniumContext.getTestLevelDriverRequired().equals("NO"))
+		{
+			ExtentTestManager.getTest().log(LogStatus.INFO,"REQUEST",AllDrive.getWriter().toString());
+			ExtentTestManager.getTest().log(LogStatus.SKIP,"Exception",testResult.getThrowable());
+			Base.RestReset();
+		}
 
-		if(ExtentManager.extent !=null && AllDrive.driverSession.get() !=null){
-			ExtentTestManager.getTest().log(LogStatus.SKIP,"Test Gets Skipped on ''onTestSkipped'' ");
+		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO")){
+			ExtentTestManager.getTest().log(LogStatus.SKIP,"","Test Gets Skipped on ''onTestSkipped'' ");
 			ExtentTestManager.endTest();
 			ExtentManager.getInstance().flush();
+			Base.RestReset();
 		}
 		AllDrive.cleanUp();
 	}
 
 	@Override
 	public void onFinish(ITestContext testResult) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -116,12 +135,10 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult testResult) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -134,20 +151,23 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 		// Handle Soft CustomAssertion
 		if (testResult.getMethod().isTest()) 
 		{
+			RetryAnalyzer retryAnalyzer = (RetryAnalyzer) testResult.getMethod().getRetryAnalyzer();
+
 			if(!CustomAssert.map.isEmpty())
 			{
 				if(CustomAssert.map.get(Thread.currentThread().getId()) != null && CustomAssert.map.get(Thread.currentThread().getId()) == false)
 				{
 					System.out.println("CustomAssert.map is not empty and current thread"+CustomAssert.map.size());
 
-					if (testResult.getMethod().getRetryAnalyzer() != null) {
+					//if (testResult.getMethod().getRetryAnalyzer() != null)
+					{
 
 						System.out.println("Retry Present");
 						System.out.println("Current test result status:- "+testResult.getStatus());
 
-						RetryAnalyzer retryAnalyzer = (RetryAnalyzer) testResult.getMethod().getRetryAnalyzer();
 
-						/*When test gets the Elemnet not found exception or any other except assertException*/
+
+						/*When test gets the Element not found exception or any other except assertException*/
 						if(testResult.getStatus()==ITestResult.FAILURE)
 						{
 							ITestContext tc = Reporter.getCurrentTestResult().getTestContext();

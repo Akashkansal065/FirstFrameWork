@@ -28,8 +28,11 @@ public class TestclassSecondobject extends GlobalDriver{
 		//driver.findElement(By.cssSelector(".jsb [name='btnK']")).click();
 		click(all);
 	}
-	@FindBy(css="#hplogo")
+	@FindBy(css="#hplog")
 	public WebElement gLogo;
+	
+	@FindBy(css="#lst-ib")
+	public WebElement textEnter;
 
 	@FindBy(css = ".jsb [name='btnK']")
 	public WebElement gSearch;

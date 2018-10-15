@@ -39,4 +39,7 @@ public class FiestObject extends GlobalDriver{
 		})
 	public WebElement all;
 	
+	@FindBy(css="#lst-ib")
+	public WebElement textEnter;
+	
 }

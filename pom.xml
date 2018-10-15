@@ -7,6 +7,13 @@
 
 	<dependencies>
 
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20180813</version>
+</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -56,6 +63,13 @@
 			<version>1.1.4</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -221,38 +235,64 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!--********************************************** REst Assured Dependencies 
+			**************************************** -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>3.0.7</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>3.0.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>3.0.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/xml-path -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>xml-path</artifactId>
+			<version>3.0.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/scala-support -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>scala-support</artifactId>
+			<version>3.0.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<version>3.0.7</version>
+		</dependency>
+		<dependency>
+    		<groupId>io.github.bonigarcia</groupId>
+    		<artifactId>webdrivermanager</artifactId>
+    		<version>3.0.0</version>
+    		<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 
 	<build>
-	<!-- <pluginManagement> -->
+		<!-- <pluginManagement> -->
 		<plugins>
-			<!-- <plugin>
-				<groupId>com.github.temyers</groupId>
-				<artifactId>cucumber-jvm-parallel-plugin</artifactId>
-				<version>5.0.0</version>
-				<executions>
-					<execution>
-						<id>generateRunners</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>generateRunners</goal>
-						</goals>
-						<configuration>
-							Mandatory
-							List of package names to scan for glue code.
-							<glue>
-								<package>cokoomber</package>
-							</glue>
-							<featuresDirectory>src/test/java/</featuresDirectory>
-							<cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
-							<format>html</format>
-							<useTestNG>true</useTestNG>
-							<parallelScheme>SCENARIO</parallelScheme>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+			<!-- <plugin> <groupId>com.github.temyers</groupId> <artifactId>cucumber-jvm-parallel-plugin</artifactId> 
+				<version>5.0.0</version> <executions> <execution> <id>generateRunners</id> 
+				<phase>generate-test-sources</phase> <goals> <goal>generateRunners</goal> 
+				</goals> <configuration> Mandatory List of package names to scan for glue 
+				code. <glue> <package>cokoomber</package> </glue> <featuresDirectory>src/test/java/</featuresDirectory> 
+				<cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir> <format>html</format> 
+				<useTestNG>true</useTestNG> <parallelScheme>SCENARIO</parallelScheme> </configuration> 
+				</execution> </executions> </plugin> -->
 			<!-- This is used for making maven compile to run forcefully on java 1.7 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

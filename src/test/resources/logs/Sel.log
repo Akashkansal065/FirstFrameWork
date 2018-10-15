@@ -1,2 +1,230 @@
-11:53:23,354 DEBUG devpinoyLogger:49 - Config File Loaded
-11:53:24,468 DEBUG devpinoyLogger:83 - END
+13:03:24,023 DEBUG BasicClientConnectionManager:161 - Get connection for route {s}->https://deployment.magicbricks.com:443
+13:03:24,023 DEBUG BasicClientConnectionManager:161 - Get connection for route {s}->https://deployment.magicbricks.com:443
+13:03:24,023 DEBUG BasicClientConnectionManager:161 - Get connection for route {s}->https://deployment.magicbricks.com:443
+13:03:24,044 DEBUG DefaultClientConnectionOperator:177 - Connecting to deployment.magicbricks.com:443
+13:03:24,044 DEBUG DefaultClientConnectionOperator:177 - Connecting to deployment.magicbricks.com:443
+13:03:24,044 DEBUG DefaultClientConnectionOperator:177 - Connecting to deployment.magicbricks.com:443
+13:03:24,298 DEBUG RequestAddCookies:123 - CookieSpec selected: ignoreCookies
+13:03:24,298 DEBUG RequestAddCookies:123 - CookieSpec selected: ignoreCookies
+13:03:24,298 DEBUG RequestAddCookies:123 - CookieSpec selected: ignoreCookies
+13:03:24,301 DEBUG RequestAuthCache:77 - Auth cache not set in the context
+13:03:24,301 DEBUG RequestAuthCache:77 - Auth cache not set in the context
+13:03:24,301 DEBUG RequestAuthCache:77 - Auth cache not set in the context
+13:03:24,301 DEBUG RequestTargetAuthentication:80 - Target auth state: UNCHALLENGED
+13:03:24,301 DEBUG RequestTargetAuthentication:80 - Target auth state: UNCHALLENGED
+13:03:24,304 DEBUG RequestTargetAuthentication:80 - Target auth state: UNCHALLENGED
+13:03:24,304 DEBUG RequestProxyAuthentication:89 - Proxy auth state: UNCHALLENGED
+13:03:24,304 DEBUG RequestProxyAuthentication:89 - Proxy auth state: UNCHALLENGED
+13:03:24,307 DEBUG DefaultHttpClient:682 - Attempt 1 to execute request
+13:03:24,304 DEBUG RequestProxyAuthentication:89 - Proxy auth state: UNCHALLENGED
+13:03:24,308 DEBUG DefaultClientConnection:274 - Sending request: POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1
+13:03:24,307 DEBUG DefaultHttpClient:682 - Attempt 1 to execute request
+13:03:24,309 DEBUG wire:73 -  >> "POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1[\r][\n]"
+13:03:24,308 DEBUG DefaultHttpClient:682 - Attempt 1 to execute request
+13:03:24,310 DEBUG DefaultClientConnection:274 - Sending request: POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1
+13:03:24,309 DEBUG DefaultClientConnection:274 - Sending request: POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1
+13:03:24,311 DEBUG wire:73 -  >> "POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1[\r][\n]"
+13:03:24,311 DEBUG wire:73 -  >> "Accept: */*[\r][\n]"
+13:03:24,312 DEBUG wire:73 -  >> "Accept: */*[\r][\n]"
+13:03:24,311 DEBUG wire:73 -  >> "POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1[\r][\n]"
+13:03:24,313 DEBUG wire:73 -  >> "Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1[\r][\n]"
+13:03:24,312 DEBUG wire:73 -  >> "Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1[\r][\n]"
+13:03:24,313 DEBUG wire:73 -  >> "Content-Length: 53[\r][\n]"
+13:03:24,313 DEBUG wire:73 -  >> "Accept: */*[\r][\n]"
+13:03:24,314 DEBUG wire:73 -  >> "Host: deployment.magicbricks.com[\r][\n]"
+13:03:24,314 DEBUG wire:73 -  >> "Content-Length: 54[\r][\n]"
+13:03:24,315 DEBUG wire:73 -  >> "Connection: Keep-Alive[\r][\n]"
+13:03:24,314 DEBUG wire:73 -  >> "Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1[\r][\n]"
+13:03:24,316 DEBUG wire:73 -  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_121)[\r][\n]"
+13:03:24,315 DEBUG wire:73 -  >> "Host: deployment.magicbricks.com[\r][\n]"
+13:03:24,316 DEBUG wire:73 -  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+13:03:24,316 DEBUG wire:73 -  >> "Content-Length: 54[\r][\n]"
+13:03:24,317 DEBUG wire:73 -  >> "[\r][\n]"
+13:03:24,317 DEBUG wire:73 -  >> "Connection: Keep-Alive[\r][\n]"
+13:03:24,318 DEBUG headers:278 - >> POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1
+13:03:24,317 DEBUG wire:73 -  >> "Host: deployment.magicbricks.com[\r][\n]"
+13:03:24,318 DEBUG headers:281 - >> Accept: */*
+13:03:24,318 DEBUG wire:73 -  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_121)[\r][\n]"
+13:03:24,319 DEBUG headers:281 - >> Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+13:03:24,319 DEBUG wire:73 -  >> "Connection: Keep-Alive[\r][\n]"
+13:03:24,319 DEBUG headers:281 - >> Content-Length: 53
+13:03:24,319 DEBUG wire:73 -  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+13:03:24,320 DEBUG headers:281 - >> Host: deployment.magicbricks.com
+13:03:24,320 DEBUG wire:73 -  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_121)[\r][\n]"
+13:03:24,321 DEBUG wire:73 -  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+13:03:24,322 DEBUG wire:73 -  >> "[\r][\n]"
+13:03:24,323 DEBUG headers:278 - >> POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1
+13:03:24,321 DEBUG headers:281 - >> Connection: Keep-Alive
+13:03:24,320 DEBUG wire:73 -  >> "[\r][\n]"
+13:03:24,324 DEBUG headers:281 - >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_121)
+13:03:24,323 DEBUG headers:281 - >> Accept: */*
+13:03:24,325 DEBUG headers:281 - >> Accept-Encoding: gzip,deflate
+13:03:24,324 DEBUG headers:278 - >> POST /bricks/fetchUserDetailsAndSendOtp.html HTTP/1.1
+13:03:24,326 DEBUG wire:87 -  >> "ubimobile=8979921513&ubilogin=akash.kansa@yopmail.com"
+13:03:24,325 DEBUG headers:281 - >> Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+13:03:24,326 DEBUG headers:281 - >> Accept: */*
+13:03:24,327 DEBUG headers:281 - >> Content-Length: 54
+13:03:24,327 DEBUG headers:281 - >> Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+13:03:24,328 DEBUG headers:281 - >> Host: deployment.magicbricks.com
+13:03:24,328 DEBUG headers:281 - >> Content-Length: 54
+13:03:24,329 DEBUG headers:281 - >> Connection: Keep-Alive
+13:03:24,329 DEBUG headers:281 - >> Host: deployment.magicbricks.com
+13:03:24,330 DEBUG headers:281 - >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_121)
+13:03:24,330 DEBUG headers:281 - >> Connection: Keep-Alive
+13:03:24,331 DEBUG headers:281 - >> Accept-Encoding: gzip,deflate
+13:03:24,331 DEBUG headers:281 - >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_121)
+13:03:24,332 DEBUG wire:87 -  >> "ubimobile=8979921513&ubilogin=akash.kansal@yopmail.com"
+13:03:24,332 DEBUG headers:281 - >> Accept-Encoding: gzip,deflate
+13:03:24,333 DEBUG wire:87 -  >> "ubimobile=8979921513&ubilogin=akash.kansal@yopmail.com"
+13:03:24,405 DEBUG wire:73 -  << "HTTP/1.1 200 OK[\r][\n]"
+13:03:24,406 DEBUG wire:73 -  << "HTTP/1.1 200 OK[\r][\n]"
+13:03:24,407 DEBUG wire:73 -  << "Set-Cookie: AlteonP-deployment=BTIwaeyPEmdfWd4CV60xfQ$$[\r][\n]"
+13:03:24,407 DEBUG wire:73 -  << "Set-Cookie: AlteonP-deployment=BfjSRuyPEmepM2okVBzlCA$$[\r][\n]"
+13:03:24,407 DEBUG wire:73 -  << "Strict-Transport-Security: max-age=1576800[\r][\n]"
+13:03:24,408 DEBUG wire:73 -  << "Strict-Transport-Security: max-age=1576800[\r][\n]"
+13:03:24,408 DEBUG wire:73 -  << "Date: Mon, 15 Oct 2018 07:30:52 GMT[\r][\n]"
+13:03:24,408 DEBUG wire:73 -  << "Date: Mon, 15 Oct 2018 07:30:52 GMT[\r][\n]"
+13:03:24,408 DEBUG wire:73 -  << "Server: Apache[\r][\n]"
+13:03:24,409 DEBUG wire:73 -  << "Server: Apache[\r][\n]"
+13:03:24,409 DEBUG wire:73 -  << "Upgrade: h2,h2c[\r][\n]"
+13:03:24,409 DEBUG wire:73 -  << "Upgrade: h2,h2c[\r][\n]"
+13:03:24,410 DEBUG wire:73 -  << "Connection: Upgrade, Keep-Alive[\r][\n]"
+13:03:24,410 DEBUG wire:73 -  << "Connection: Upgrade, Keep-Alive[\r][\n]"
+13:03:24,410 DEBUG wire:73 -  << "Content-Language: en[\r][\n]"
+13:03:24,411 DEBUG wire:73 -  << "Content-Language: en[\r][\n]"
+13:03:24,411 DEBUG wire:73 -  << "Cache-Control: max-age=0[\r][\n]"
+13:03:24,411 DEBUG wire:73 -  << "Content-Length: 63[\r][\n]"
+13:03:24,412 DEBUG wire:73 -  << "Expires: Mon, 15 Oct 2018 07:30:52 GMT[\r][\n]"
+13:03:24,412 DEBUG wire:73 -  << "Cache-Control: max-age=0[\r][\n]"
+13:03:24,412 DEBUG wire:73 -  << "Vary: Accept-Encoding[\r][\n]"
+13:03:24,413 DEBUG wire:73 -  << "Expires: Mon, 15 Oct 2018 07:30:52 GMT[\r][\n]"
+13:03:24,413 DEBUG wire:73 -  << "Content-Encoding: gzip[\r][\n]"
+13:03:24,413 DEBUG wire:73 -  << "Access-Control-Allow-Origin: *[\r][\n]"
+13:03:24,413 DEBUG wire:73 -  << "Access-Control-Allow-Origin: *[\r][\n]"
+13:03:24,414 DEBUG wire:73 -  << "X-Cool: 207.49[\r][\n]"
+13:03:24,414 DEBUG wire:73 -  << "X-Cool: 207.49[\r][\n]"
+13:03:24,414 DEBUG wire:73 -  << "Set-Cookie: JSESSIONID=196D75266A073A4A4D5FB321F31E9E0B-n1.MBNEWDEP79; Domain=deployment.magicbricks.com; Path=/; Secure[\r][\n]"
+13:03:24,415 DEBUG wire:73 -  << "Set-Cookie: JSESSIONID=8D93A88B1472E320BFC6B6D34C4895B9-n1.MBNEWDEP79; Domain=deployment.magicbricks.com; Path=/; Secure[\r][\n]"
+13:03:24,415 DEBUG wire:73 -  << "Keep-Alive: timeout=20, max=200[\r][\n]"
+13:03:24,415 DEBUG wire:73 -  << "Content-Length: 189[\r][\n]"
+13:03:24,416 DEBUG wire:73 -  << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+13:03:24,416 DEBUG wire:73 -  << "Keep-Alive: timeout=20, max=200[\r][\n]"
+13:03:24,416 DEBUG wire:73 -  << "[\r][\n]"
+13:03:24,417 DEBUG wire:73 -  << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+13:03:24,417 DEBUG wire:73 -  << "[\r][\n]"
+13:03:24,418 DEBUG DefaultClientConnection:259 - Receiving response: HTTP/1.1 200 OK
+13:03:24,418 DEBUG DefaultClientConnection:259 - Receiving response: HTTP/1.1 200 OK
+13:03:24,418 DEBUG headers:262 - << HTTP/1.1 200 OK
+13:03:24,419 DEBUG headers:262 - << HTTP/1.1 200 OK
+13:03:24,420 DEBUG headers:265 - << Set-Cookie: AlteonP-deployment=BTIwaeyPEmdfWd4CV60xfQ$$
+13:03:24,419 DEBUG headers:265 - << Set-Cookie: AlteonP-deployment=BfjSRuyPEmepM2okVBzlCA$$
+13:03:24,420 DEBUG headers:265 - << Strict-Transport-Security: max-age=1576800
+13:03:24,420 DEBUG wire:73 -  << "HTTP/1.1 200 OK[\r][\n]"
+13:03:24,421 DEBUG headers:265 - << Date: Mon, 15 Oct 2018 07:30:52 GMT
+13:03:24,421 DEBUG headers:265 - << Strict-Transport-Security: max-age=1576800
+13:03:24,422 DEBUG headers:265 - << Server: Apache
+13:03:24,422 DEBUG wire:73 -  << "Set-Cookie: AlteonP-deployment=Be/OZuyPEmcox2YwwXzYfA$$[\r][\n]"
+13:03:24,423 DEBUG headers:265 - << Upgrade: h2,h2c
+13:03:24,422 DEBUG headers:265 - << Date: Mon, 15 Oct 2018 07:30:52 GMT
+13:03:24,424 DEBUG headers:265 - << Connection: Upgrade, Keep-Alive
+13:03:24,423 DEBUG wire:73 -  << "Strict-Transport-Security: max-age=1576800[\r][\n]"
+13:03:24,424 DEBUG headers:265 - << Content-Language: en
+13:03:24,424 DEBUG headers:265 - << Server: Apache
+13:03:24,425 DEBUG headers:265 - << Cache-Control: max-age=0
+13:03:24,425 DEBUG wire:73 -  << "Date: Mon, 15 Oct 2018 07:30:52 GMT[\r][\n]"
+13:03:24,426 DEBUG wire:73 -  << "Server: Apache[\r][\n]"
+13:03:24,425 DEBUG headers:265 - << Expires: Mon, 15 Oct 2018 07:30:52 GMT
+13:03:24,425 DEBUG headers:265 - << Upgrade: h2,h2c
+13:03:24,426 DEBUG headers:265 - << Vary: Accept-Encoding
+13:03:24,426 DEBUG wire:73 -  << "Upgrade: h2,h2c[\r][\n]"
+13:03:24,427 DEBUG headers:265 - << Content-Encoding: gzip
+13:03:24,426 DEBUG headers:265 - << Connection: Upgrade, Keep-Alive
+13:03:24,428 DEBUG headers:265 - << Content-Language: en
+13:03:24,427 DEBUG headers:265 - << Access-Control-Allow-Origin: *
+13:03:24,427 DEBUG wire:73 -  << "Connection: Upgrade, Keep-Alive[\r][\n]"
+13:03:24,428 DEBUG headers:265 - << X-Cool: 207.49
+13:03:24,428 DEBUG headers:265 - << Content-Length: 63
+13:03:24,429 DEBUG headers:265 - << Set-Cookie: JSESSIONID=8D93A88B1472E320BFC6B6D34C4895B9-n1.MBNEWDEP79; Domain=deployment.magicbricks.com; Path=/; Secure
+13:03:24,428 DEBUG wire:73 -  << "Content-Language: en[\r][\n]"
+13:03:24,429 DEBUG headers:265 - << Content-Length: 189
+13:03:24,429 DEBUG headers:265 - << Cache-Control: max-age=0
+13:03:24,430 DEBUG headers:265 - << Expires: Mon, 15 Oct 2018 07:30:52 GMT
+13:03:24,430 DEBUG headers:265 - << Keep-Alive: timeout=20, max=200
+13:03:24,430 DEBUG wire:73 -  << "Cache-Control: max-age=0[\r][\n]"
+13:03:24,431 DEBUG headers:265 - << Content-Type: application/json;charset=UTF-8
+13:03:24,431 DEBUG headers:265 - << Access-Control-Allow-Origin: *
+13:03:24,431 DEBUG wire:73 -  << "Expires: Mon, 15 Oct 2018 07:30:52 GMT[\r][\n]"
+13:03:24,432 DEBUG headers:265 - << X-Cool: 207.49
+13:03:24,433 DEBUG wire:73 -  << "Vary: Accept-Encoding[\r][\n]"
+13:03:24,433 DEBUG wire:73 -  << "Content-Encoding: gzip[\r][\n]"
+13:03:24,433 DEBUG headers:265 - << Set-Cookie: JSESSIONID=196D75266A073A4A4D5FB321F31E9E0B-n1.MBNEWDEP79; Domain=deployment.magicbricks.com; Path=/; Secure
+13:03:24,435 DEBUG headers:265 - << Keep-Alive: timeout=20, max=200
+13:03:24,434 DEBUG wire:73 -  << "Access-Control-Allow-Origin: *[\r][\n]"
+13:03:24,435 DEBUG headers:265 - << Content-Type: application/json;charset=UTF-8
+13:03:24,436 DEBUG wire:73 -  << "X-Cool: 207.49[\r][\n]"
+13:03:24,436 DEBUG wire:73 -  << "Set-Cookie: JSESSIONID=5A42F365E070BDEBEC4270280A34C413-n1.MBNEWDEP79; Domain=deployment.magicbricks.com; Path=/; Secure[\r][\n]"
+13:03:24,437 DEBUG wire:73 -  << "Content-Length: 189[\r][\n]"
+13:03:24,437 DEBUG wire:73 -  << "Keep-Alive: timeout=20, max=200[\r][\n]"
+13:03:24,438 DEBUG wire:73 -  << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+13:03:24,438 DEBUG DefaultHttpClient:509 - Connection can be kept alive for 20000 MILLISECONDS
+13:03:24,438 DEBUG DefaultHttpClient:509 - Connection can be kept alive for 20000 MILLISECONDS
+13:03:24,438 DEBUG wire:73 -  << "[\r][\n]"
+13:03:24,439 DEBUG DefaultClientConnection:259 - Receiving response: HTTP/1.1 200 OK
+13:03:24,440 DEBUG headers:262 - << HTTP/1.1 200 OK
+13:03:24,440 DEBUG headers:265 - << Set-Cookie: AlteonP-deployment=Be/OZuyPEmcox2YwwXzYfA$$
+13:03:24,440 DEBUG headers:265 - << Strict-Transport-Security: max-age=1576800
+13:03:24,441 DEBUG headers:265 - << Date: Mon, 15 Oct 2018 07:30:52 GMT
+13:03:24,441 DEBUG headers:265 - << Server: Apache
+13:03:24,441 DEBUG headers:265 - << Upgrade: h2,h2c
+13:03:24,442 DEBUG headers:265 - << Connection: Upgrade, Keep-Alive
+13:03:24,442 DEBUG headers:265 - << Content-Language: en
+13:03:24,443 DEBUG headers:265 - << Cache-Control: max-age=0
+13:03:24,443 DEBUG headers:265 - << Expires: Mon, 15 Oct 2018 07:30:52 GMT
+13:03:24,444 DEBUG headers:265 - << Vary: Accept-Encoding
+13:03:24,444 DEBUG headers:265 - << Content-Encoding: gzip
+13:03:24,444 DEBUG headers:265 - << Access-Control-Allow-Origin: *
+13:03:24,445 DEBUG headers:265 - << X-Cool: 207.49
+13:03:24,445 DEBUG headers:265 - << Set-Cookie: JSESSIONID=5A42F365E070BDEBEC4270280A34C413-n1.MBNEWDEP79; Domain=deployment.magicbricks.com; Path=/; Secure
+13:03:24,446 DEBUG headers:265 - << Content-Length: 189
+13:03:24,446 DEBUG headers:265 - << Keep-Alive: timeout=20, max=200
+13:03:24,446 DEBUG headers:265 - << Content-Type: application/json;charset=UTF-8
+13:03:24,447 DEBUG DefaultHttpClient:509 - Connection can be kept alive for 20000 MILLISECONDS
+13:03:24,466 DEBUG RequestSpecificationImpl$RestAssuredHttpBuilder:544 - Parsing response as: application/json;charset=UTF-8
+13:03:24,469 DEBUG wire:73 -  << "[0x1f][0x8b][0x8][0x0][0x0][0x0][0x0][0x0][0x0][0x3]M[0x8e][0xcd][0xe][0x82]0[0x10][0x84][0xef]>F[0x8f][0xc4][0x18][\n]"
+13:03:24,470 DEBUG wire:87 -  << "[0x94]ZNVZ^[0xc0][0xe8][0x1d]q![0x1b][0xcb]O[0xda]b4[0xc6]w[0xb7][0xc1][0x90][0xb8][0x97][0xc9]~[0xb3];[0x99][0xcd][0x9b][0xa0][0x93][0x8d][0xc7][0x7][0x90][0xc2][0xdb][0x19][0xb6]d[0xbe]"[0xf4]5[0x1a]R[0x90][0xfa]^G[0xeb][0x1c]^?[0xdd]5QD[0xc2][0x95][0x3][0xab][0x9f][0xe8][0xbc][[0xff][0xfa][0xf1][0x8a][0x6].`[0xb1]E[0xb8][0xad]t[0xf4][0xd3][0x9][0x6][0xbf][0xae][\r]X[0xbf][0xf8][0xb2][h[[0x1b][0x17][0xf0]d[0xa1][0xc7][0xb9]?[0x87][0xd0][0xbf][0x1a]f[0xec]p[0x8]5[0xb4][0x88]s[0xae][0x99][0xe2]{[0x96][0xe9]L[0x96][0xe9]1[0xab]X\[0x96]L[0xa5]2[0xc0][0x8c][0xd2]*[0xa7]B2A[0xb9]T[0x9]W"V,Or[0xca])[0xe3]2[0xe5][0x82]|[0xbe][0xb7][\r][0xed]D[0xe7][0x0][0x0][0x0]"
+13:03:24,467 DEBUG RequestSpecificationImpl$RestAssuredHttpBuilder:544 - Parsing response as: application/json;charset=UTF-8
+13:03:24,470 DEBUG RequestSpecificationImpl$RestAssuredHttpBuilder:547 - Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+13:03:24,469 DEBUG RequestSpecificationImpl$RestAssuredHttpBuilder:544 - Parsing response as: application/json;charset=UTF-8
+13:03:24,470 DEBUG RequestSpecificationImpl$RestAssuredHttpBuilder:547 - Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+13:03:24,472 DEBUG wire:73 -  << "[0x1f][0x8b][0x8][0x0][0x0][0x0][0x0][0x0][0x0][0x3]M[0x8e][0xcd][0xe][0x82]0[0x10][0x84][0xef]>F[0x8f][0xc4][0x18][\n]"
+13:03:24,473 DEBUG wire:87 -  << "[0x94]ZNVZ^[0xc0][0xe8][0x1d]q![0x1b][0xcb]O[0xda]b4[0xc6]w[0xb7][0xc1][0x90][0xb8][0x97][0xc9]~[0xb3];[0x99][0xcd][0x9b][0xa0][0x93][0x8d][0xc7][0x7][0x90][0xc2][0xdb][0x19][0xb6]d[0xbe]"[0xf4]5[0x1a]R[0x90][0xfa]^G[0xeb][0x1c]^?[0xdd]5QD[0xc2][0x95][0x3][0xab][0x9f][0xe8][0xbc][[0xff][0xfa][0xf1][0x8a][0x6].`[0xb1]E[0xb8][0xad]t[0xf4][0xd3][0x9][0x6][0xbf][0xae][\r]X[0xbf][0xf8][0xb2][h[[0x1b][0x17][0xf0]d[0xa1][0xc7][0xb9]?[0x87][0xd0][0xbf][0x1a]f[0xec]p[0x8]5[0xb4][0x88]s[0xae][0x99][0xe2]{[0x96][0xe9]L[0x96][0xe9]1[0xab]X\[0x96]L[0xa5]2[0xc0][0x8c][0xd2]*[0xa7]B2A[0xb9]T[0x9]W"V,Or[0xca])[0xe3]2[0xe5][0x82]|[0xbe][0xb7][\r][0xed]D[0xe7][0x0][0x0][0x0]"
+13:03:24,474 DEBUG RequestSpecificationImpl$RestAssuredHttpBuilder:547 - Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+13:03:24,557 DEBUG wire:73 -  << "[\n]"
+13:03:24,558 DEBUG wire:87 -  << "{"userExists":false,"certifiedAgent":true,"premiumUser":false}"
+13:03:24,559 DEBUG BasicClientConnectionManager:200 - Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@415dd26d
+13:03:24,560 DEBUG BasicClientConnectionManager:225 - Connection can be kept alive for 20000 MILLISECONDS
+13:03:24,565 DEBUG BasicClientConnectionManager:200 - Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@1545b1c
+13:03:24,565 DEBUG BasicClientConnectionManager:225 - Connection can be kept alive for 20000 MILLISECONDS
+13:03:24,566 DEBUG BasicClientConnectionManager:200 - Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@4656e44b
+13:03:24,566 DEBUG BasicClientConnectionManager:225 - Connection can be kept alive for 20000 MILLISECONDS
+13:03:24,694 DEBUG cache:44 - Couldn't find template in cache for "Extent.ftl"("en_US", UTF-8, parsed); will try to load it.
+13:03:24,695 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en_US.ftl"): Not found
+13:03:24,697 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en.ftl"): Not found
+13:03:24,698 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent.ftl"): Found
+13:03:24,699 DEBUG cache:44 - Loading template for "Extent.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/Akash.Kansal/.m2/repository/com/relevantcodes/extentreports/2.41.2/extentreports-2.41.2.jar!/com/relevantcodes/extentreports/view/Extent.ftl"
+13:03:25,152 DEBUG cache:44 - Couldn't find template in cache for "Extent.ftl"("en_US", UTF-8, parsed); will try to load it.
+13:03:25,153 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en_US.ftl"): Not found
+13:03:25,154 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en.ftl"): Not found
+13:03:25,155 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent.ftl"): Found
+13:03:25,155 DEBUG cache:44 - Loading template for "Extent.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/Akash.Kansal/.m2/repository/com/relevantcodes/extentreports/2.41.2/extentreports-2.41.2.jar!/com/relevantcodes/extentreports/view/Extent.ftl"
+13:03:25,214 DEBUG cache:44 - Couldn't find template in cache for "Extent.ftl"("en_US", UTF-8, parsed); will try to load it.
+13:03:25,215 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en_US.ftl"): Not found
+13:03:25,215 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en.ftl"): Not found
+13:03:25,216 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent.ftl"): Found
+13:03:25,216 DEBUG cache:44 - Loading template for "Extent.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/Akash.Kansal/.m2/repository/com/relevantcodes/extentreports/2.41.2/extentreports-2.41.2.jar!/com/relevantcodes/extentreports/view/Extent.ftl"
+13:03:25,302 DEBUG devpinoyLogger:127 - END
+13:03:25,303 DEBUG cache:44 - Couldn't find template in cache for "Extent.ftl"("en_US", UTF-8, parsed); will try to load it.
+13:03:25,304 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en_US.ftl"): Not found
+13:03:25,304 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent_en.ftl"): Not found
+13:03:25,305 DEBUG cache:44 - TemplateLoader.findTemplateSource("Extent.ftl"): Found
+13:03:25,305 DEBUG cache:44 - Loading template for "Extent.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/Akash.Kansal/.m2/repository/com/relevantcodes/extentreports/2.41.2/extentreports-2.41.2.jar!/com/relevantcodes/extentreports/view/Extent.ftl"

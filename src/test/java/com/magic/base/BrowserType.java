@@ -17,6 +17,8 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import com.magic.seleniumUtils.SeleniumContext;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class BrowserType {
 
 	static synchronized WebDriver browser() throws MalformedURLException
@@ -33,7 +35,8 @@ public class BrowserType {
 		switch(browserName){
 
 		case "chrome":
-			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("test-type");
 			chromeOptions.addArguments("disable-infobars");
@@ -52,6 +55,7 @@ public class BrowserType {
 			/**********************************************************************************/
 		case "firefox":
 			System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//geckodriver.exe");
+			//WebDriverManager.firefoxdriver().setup();			
 			DesiredCapabilities capabilities3 = DesiredCapabilities.firefox();
 			if(Grid.equals("ON"))
 			{
