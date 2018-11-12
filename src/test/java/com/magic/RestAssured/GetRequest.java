@@ -10,6 +10,7 @@ import com.magic.base.Base;
 import com.magic.utilities.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -93,7 +94,7 @@ public class GetRequest extends Base{
 	}*/
 	RequestSpecification req = null;
 	Response res = null;
-	@Test
+	/*@Test
 	public void cook()
 	{
 		//Cookies.ACEGIC("8979921513", "adjka");
@@ -117,14 +118,14 @@ public class GetRequest extends Base{
 		ExtentTestManager.getTest().log(LogStatus.INFO,"RESPONSE",res.asString());
 		ExtentTestManager.getTest().log(LogStatus.INFO,"REQUEST",AllDrive.getWriter().toString());
 		ExtentTestManager.getTest().log(LogStatus.INFO,"RESPONSE",res.prettyPrint());
-	}
+	}*/
 	@Test
 	public void cook2()
 	{
 		//Cookies.ACEGIC("8979921513", "adjka");
 		given().log().all().header("Content-Type", "application/x-www-form-urlencoded")
 		.body("ubimobile=8979921513&ubilogin=akash.kansal@yopmail.com")
-		.when().post("/bricks/fetchUserDetailsAndSendOtp.html").then().log().all();
+		.when().post("/bricks/fetchUserDetailsAndSendOtp.html").then().log().all().and().statusCode(400);
 		//Assert.fail();
 		ExtentTestManager.getTest().log(LogStatus.INFO,"REQUEST",loggedRequestPathIn(AllDrive.getWriter()));
 		ExtentTestManager.getTest().log(LogStatus.INFO,"RESPONSE",loggedResponsePathIn(AllDrive.getWriter()));

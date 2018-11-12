@@ -155,18 +155,7 @@ public class Base {
 		RestAssured.baseURI = null;
 		RestAssured.reset();
 	}
-	public boolean isElementPresent(By by)
-	{
-		try
-		{
-			//driver.findElement(by);
-			return true;
-		}
-		catch(NoSuchElementException e)
-		{
-			return false;
-		}
-	}
+	
 	public static void restProxy()
 	{
 		if(SeleniumContext.getTestLevelRestProxy().equalsIgnoreCase("Yes"))

@@ -155,6 +155,21 @@ public class Cookies {
 		Base.token.put(mobileno,tokenn);
 		Base.RestReset();
 	}
+	public void JiraSession(String mobile,String emailId)
+	{
+		System.out.println("https://timesgroup.jira.com/");
+		RestAssured.baseURI	= "https://timesgroup.jira.com/";
+		Base.restProxy();
+		RestAssured.config = RestAssured.config().logConfig(LogConfig.logConfig().defaultStream(AllDrive.getPrintStream()).enablePrettyPrinting(true));
+		RestAssured.useRelaxedHTTPSValidation();
+		RequestSpecification req = given().log().all().header("Content-Type",ContentType.JSON)
+				.body("{"+"\"username\":\"akash.kansal@yopmail.com\","+"\"password\":\"6789067890\""+"}");
+		Response res = req.post("/jira/rest/auth/1/session");
+		ExtentTestManager.getTest().log(LogStatus.INFO,"ACEGIC Request",AllDrive.getWriter().toString());
+		ExtentTestManager.getTest().log(LogStatus.INFO,"Cookies",res.cookies().toString());
+		Base.acegic.put(mobile,res.getDetailedCookie("ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE").toString());
+		Base.RestReset();
+	}
 	public void addCookies()
 	{
 		System.out.println("AddCookies");

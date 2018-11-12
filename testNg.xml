@@ -6,7 +6,7 @@
 <!--Msite browserName = apple,iphonesize,androidsize -->
 <!--M deviceName = Apple iphone 6,Nexus 5 -->
 
-<suite name="DataDriven" parallel="methods" thread-count="10" verbose="10">
+<suite name="DataDriven" parallel="false" thread-count="1" verbose="10">
 	<listeners>
 		<listener class-name="com.magic.listners.CustomListner"></listener>
 		<listener class-name="com.magic.listners.AnnotationTransformer"></listener>
