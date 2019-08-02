@@ -7,7 +7,9 @@ import java.io.StringWriter;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.testng.ITestContext;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.restassured.RestAssured;
 import io.restassured.config.LogConfig;
 import io.restassured.specification.RequestSpecification;
@@ -17,6 +19,7 @@ public class AllDrive {
 	public static ThreadLocal<WebDriver> driverSession = new ThreadLocal<WebDriver>();
 	public static ThreadLocal<StringWriter> writer = new ThreadLocal<StringWriter>();
 	public static ThreadLocal<PrintStream> captor = new ThreadLocal<PrintStream>();
+	public static ThreadLocal<AndroidDriver> appDriverSession = new ThreadLocal<AndroidDriver>();
 	
 	
 	public static void createPrintStream()
@@ -109,5 +112,51 @@ public class AllDrive {
         driverSession.remove();
         System.out.println("Driver gets cleaned");
     }
+	
+	public static AndroidDriver createAppDriver(String platform, String udid, String systemPort) throws Exception {
+		AndroidDriver driver = BrowserType.apps(platform,udid,systemPort);
+		appDriverSession.set(driver);
+		return driver;
+	}
+	private static AndroidDriver createAppDriver() throws Exception {
+		AndroidDriver driver = BrowserType.app();
+		appDriverSession.set(driver);
+		return driver;
+	}
+	private static AndroidDriver getAppDriver(final Boolean isCreate) {
+		if (appDriverSession.get() == null && isCreate) {
+			try {
+				createAppDriver();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(appDriverSession.get() == null)
+		{
+		try {
+			createAppDriver();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
+		return appDriverSession.get();
+	}
+
+	public static AndroidDriver getAppDriver() {
+		return getAppDriver(false);
+	}
+	public static void cleanAppDriver() {
+        AndroidDriver driver = appDriverSession.get();
+        if (driver != null) {
+            try {
+                driver.quit();
+            } catch (WebDriverException ex) {
+                ex.printStackTrace();
+            }
+            driver = null;
+        }
+        appDriverSession.remove();
+    System.out.println("App Driver gets cleaned");
+}
 
 }

@@ -26,7 +26,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	@Override
 	public void onTestStart(ITestResult testResult) {
 		System.out.println("On test Start Method Called used in Cucumber");
-		SeleniumContext.context = testResult.getTestContext();		//This is for Cucumber 
+		//SeleniumContext.context = testResult.getTestContext();		//This is for Cucumber 
 		/*ExtentTestManager.startTest(testResult.getTestClass().getName()+"."+testResult.getName().toUpperCase(),testResult.getMethod().getDescription());
 		ExtentTestManager.getTest().assignCategory(testResult.getTestClass().getName());
 		ExtentTestManager.getTest().log(LogStatus.INFO,"onTestStart" ,testResult.getName());*/
@@ -35,15 +35,22 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 	@Override
 	public void onTestSuccess(ITestResult testResult) {
 
-		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO"))
+//		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) )//|| testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO"))
+//		{
+//			System.out.println("onTestSuccessonTestSuccessonTestSuccessonTestSuccessonTestSuccessonTestSuccess");
+//			ExtentTestManager.getTest().log(LogStatus.PASS, testResult.getName().toUpperCase()+"Success");
+//			ExtentTestManager.endTest();
+//			ExtentManager.getInstance().flush();
+//			Base.RestReset();
+//		}
+//		AllDrive.cleanUp();
+		if(AllDrive.appDriverSession.get() !=null)
 		{
-			System.out.println("onTestSuccessonTestSuccessonTestSuccessonTestSuccessonTestSuccessonTestSuccess");
 			ExtentTestManager.getTest().log(LogStatus.PASS, testResult.getName().toUpperCase()+"Success");
 			ExtentTestManager.endTest();
 			ExtentManager.getInstance().flush();
-			Base.RestReset();
+			AllDrive.cleanAppDriver();			
 		}
-		AllDrive.cleanUp();
 	}
 
 
@@ -60,6 +67,18 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 						(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
 			}catch (IOException e) {e.printStackTrace();}
 			ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+		}
+		if(AllDrive.appDriverSession.get() !=null)
+		{
+
+			String shotName = null;
+			try {
+				System.out.println("Try to capture Screen Shot");
+				shotName = ScreenShot.AppShotCaptured(AllDrive.getAppDriver(), System.getProperty("user.dir")+"/Reports/extent_reports/"+ 
+						(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
+			}catch (IOException e) {e.printStackTrace();}
+			ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+			
 		}
 		if(SeleniumContext.getTestLevelDriverRequired().equals("NO"))
 		{
@@ -83,7 +102,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 		//Reporter.log("Test complete");
 		//Reporter.log("<a target=\"blank\" href="+shotName+">Click</a>");
 
-		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO"))
+		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null || AllDrive.appDriverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO"))
 		{
 			System.out.println("After Test Failed");
 			ExtentTestManager.endTest();
@@ -91,6 +110,7 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 			Base.RestReset();
 		}
 		AllDrive.cleanUp();
+		AllDrive.cleanAppDriver();
 	}
 
 	@Override
@@ -109,6 +129,18 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 				ExtentTestManager.getTest().log(LogStatus.SKIP,ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
 			}catch (IOException e) {e.printStackTrace();}
 		}
+		if(AllDrive.appDriverSession.get() !=null)
+		{
+
+			String shotName = null;
+			try {
+				System.out.println("Try to capture Screen Shot");
+				shotName = ScreenShot.AppShotCaptured(AllDrive.getAppDriver(), System.getProperty("user.dir")+"/Reports/extent_reports/"+ 
+						(date.getMonth()+1) +"/"+date.getDate()+"/"+testResult.getMethod().getMethodName()+date.getTime());
+			}catch (IOException e) {e.printStackTrace();}
+			ExtentTestManager.getTest().log(LogStatus.FAIL, ExtentTestManager.getTest().addScreenCapture(shotName),testResult.getThrowable());
+			
+		}
 		if(SeleniumContext.getTestLevelDriverRequired().equals("NO"))
 		{
 			ExtentTestManager.getTest().log(LogStatus.INFO,"REQUEST",AllDrive.getWriter().toString());
@@ -116,13 +148,14 @@ public class CustomListner implements ITestListener,IInvokedMethodListener{
 			Base.RestReset();
 		}
 
-		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO")){
+		if((ExtentManager.extent !=null && AllDrive.driverSession.get() !=null || AllDrive.appDriverSession.get() !=null) || testResult.getTestContext().getCurrentXmlTest().getParameter("WebDriverRequired").equals("NO")){
 			ExtentTestManager.getTest().log(LogStatus.SKIP,"","Test Gets Skipped on ''onTestSkipped'' ");
 			ExtentTestManager.endTest();
 			ExtentManager.getInstance().flush();
 			Base.RestReset();
 		}
 		AllDrive.cleanUp();
+		AllDrive.cleanAppDriver();
 	}
 
 	@Override

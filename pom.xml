@@ -24,14 +24,26 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>3.4.0</version>
+			<version>3.141.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.4.0</version>
+			<version>3.141.5</version>
 		</dependency>
+		<dependency>
+		  <groupId>io.appium</groupId>
+		  <artifactId>java-client</artifactId>
+		  <version>6.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.6</version>
+</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.relevantcodes/extentreports -->
 		<dependency>
 			<groupId>com.relevantcodes</groupId>
@@ -173,6 +185,13 @@
 			<version>1.7.25</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+<dependency>
+    <groupId>commons-validator</groupId>
+    <artifactId>commons-validator</artifactId>
+    <version>1.6</version>
+</dependency>
+		
 
 
 		<!--Cucumber Dependencies -->
@@ -314,6 +333,7 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>testNg.xml</suiteXmlFile>
 					</suiteXmlFiles>
+					<!-- <forkCount>0</forkCount> -->     <!-- For Debugging use fork count -->
 				</configuration>
 			</plugin>
 		</plugins>

@@ -64,6 +64,8 @@ public class Cookies {
 		ExtentTestManager.getTest().log(LogStatus.INFO,"Cookies",res.cookies().toString());
 		ExtentTestManager.getTest().log(LogStatus.INFO,"Response Body",res.prettyPrint());
 		Base.acegic.put(mobile,res.getDetailedCookie("ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE").toString());
+		Base.completeCookieWeb.put(mobile,res.getCookies());
+		System.err.println("Cookies generated for the "+mobile+ " : "+Base.completeCookieWeb.get(mobile));
 		Base.RestReset();
 	}
 	public void mobileNoACEGIC(String mobile)
@@ -126,6 +128,7 @@ public class Cookies {
 		ExtentTestManager.getTest().log(LogStatus.INFO,"MobileToken Response Body",res.prettyPrint());
 		String tokenn = res.jsonPath().getString("token");
 		Base.token.put(mobileno,tokenn);
+		Base.completeCookieWap.put(mobileno,res.getCookies());
 		Base.RestReset();
 	}
 	public void MultipleEmailToken(String mobileno,String emailId)
@@ -173,31 +176,41 @@ public class Cookies {
 	public void addCookies()
 	{
 		System.out.println("AddCookies");
-		Map<String,List<Map<String,String>>> keys = new Provider().restData();
+		Map<String,Map<String,List<List<String>>>> allDataMAp = new Provider().restData();
 		System.out.println("cookies Edit");
-		for (String mapKey : keys.keySet()) {
-			System.out.println(mapKey);
-			List<Map<String,String>> ls = keys.get(mapKey);
-			for (Map<String,String> map : ls) {
-				{
-					for (String mobileNo : map.keySet()) {
-						System.out.println(mobileNo);
-						if(!mobileNo.equals(null))
+
+		for (String acegicKey : allDataMAp.keySet()) {
+
+			System.out.println(acegicKey);
+
+			Map<String,List<List<String>>> mobileDataMap = allDataMAp.get(acegicKey);
+
+			for (String mobileKey : mobileDataMap.keySet())
+			{
+				List<List<String>> mobileDataList = mobileDataMap.get(mobileKey); 
+
+				for (List<String> dataValueList : mobileDataList) {
+
+					System.out.println(dataValueList);
+
+					//for(int columnData=0; columnData < dataValueList.size(); columnData++)
+					{
+						System.out.println(dataValueList.get(0)+":"+dataValueList.get(1));
+						if("ACEGIC".equalsIgnoreCase(acegicKey)) {
+							
+							System.out.println("Check");
+							
+							new DBManager().executeMobilEmailUpdate(dataValueList.get(0),mobileKey,dataValueList.get(1));
+							
+							ACEGIC(mobileKey,dataValueList.get(0));
+						} 
+						else if(acegicKey.contains("Token"))
 						{
-							System.out.println(mobileNo+":"+map.get(mobileNo));
-							if(mapKey.contains("ACEG"))
-							{
-								System.out.println("Check");
-								ACEGIC(mobileNo,map.get(mobileNo));
-							}
-							if(mapKey.contains("Token"))
-							{
-								MultipleEmailToken(mobileNo,map.get(mobileNo));
-							}
+							MultipleEmailToken(mobileKey,dataValueList.get(0));
 						}
 					}
-
 				}
+
 			}
 		}
 	}

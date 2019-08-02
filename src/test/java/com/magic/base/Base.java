@@ -19,6 +19,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.magic.RestUtils.Cookies;
@@ -28,6 +29,7 @@ import com.magic.utilities.ExtentManager;
 import com.magic.utilities.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.restassured.RestAssured;
 import io.restassured.config.LogConfig;
 
@@ -48,57 +50,70 @@ public class Base {
 	//public LogConfig originalLogConfig;
 	public static Map<String,String> acegic = new LinkedHashMap<>();
 	public static Map<String,String> token = new LinkedHashMap<>();
+	public static Map<String,Map<String,String>> completeCookieWeb = new LinkedHashMap<>();
+	public static Map<String,Map<String,String>> completeCookieWap = new LinkedHashMap<>();
+	public static String AppServiceUrl;
 
 	@BeforeSuite(alwaysRun=true)
 	public void Marvel() throws IOException
 	{
 		System.out.println("Before Suite");
+		//new BrowserType().launchEmulator("olddevice");
+		//AppServiceUrl = BrowserType.AppiumServiceUrl();
 	}
 
-	/*@BeforeTest
-	public void hulk(ITestContext context)
-	{
-		SeleniumContext.context = context;
-		String Web = SeleniumContext.getTestLevelDriverRequired();
-		if(Web.equalsIgnoreCase("NO"))
-		{
-			try{
-				ExtentTestManager.startTest(SeleniumContext.getAllContext().getCurrentXmlTest().getName()+".Before Test");
-				ExtentTestManager.getTest().log(LogStatus.INFO,"@Before Test","Data");
-				new DBManager().executeUpdate();
-				new Cookies().addCookies();
-			}
-			finally{
-				ExtentTestManager.endTest();
-				ExtentManager.getInstance().flush();
-				RestReset();	
-			}
-		}
-	}*/
+//	@BeforeTest(alwaysRun = true)
+//    @Parameters({"deviceName", "mobileAdbName", "systemPort"})
+//    public void setup(String platform, String udid, String systemPort) throws Exception {
+//		//SeleniumContext.context = context;
+//		System.out.println( platform+ udid+ systemPort);
+//		try {
+//			AllDrive.createAppDriver(platform, udid, systemPort);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		/*
+//		 * String Web = SeleniumContext.getTestLevelDriverRequired();
+//		 * if(Web.equalsIgnoreCase("NO")) { try{
+//		 * ExtentTestManager.startTest(SeleniumContext.getAllContext().getCurrentXmlTest
+//		 * ().getName()+".Before Test");
+//		 * ExtentTestManager.getTest().log(LogStatus.INFO,"@Before Test","Data"); new
+//		 * DBManager().executeUpdate(); new Cookies().addCookies(); } finally{
+//		 * ExtentTestManager.endTest(); ExtentManager.getInstance().flush();
+//		 * RestReset(); } }
+//		 */
+//	}
+	
 	@BeforeMethod(alwaysRun=true)
-	public void captainAmerica(Method m,ITestContext context)
+	@Parameters({"deviceName", "mobileAdbName", "systemPort"})
+	public void captainAmerica(String platform, String udid, String systemPort,Method m)
 	{
-		SeleniumContext.context = context;
+		//SeleniumContext.context = context;
+		System.out.println( platform+ udid+ systemPort);
+		try {
+			AllDrive.createAppDriver(platform, udid, systemPort);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Before Mehod Executing fo the method :- "+m.getName());
-		String URi=SeleniumContext.getTestLevelURL();
-		System.out.println(URi);
-		String Rest = SeleniumContext.getTestLevelDriverRequired();
-		if(Rest.equals("NO"))
-		{
-			System.out.println("Rest Assured");
-			RestAssured.baseURI	= URi;
-			restProxy();
-			RestAssured.config = RestAssured.config().logConfig(LogConfig.logConfig().defaultStream(AllDrive.getPrintStream()).enablePrettyPrinting(true));
-			RestAssured.useRelaxedHTTPSValidation();
-		}
-		else
-		{
-			System.out.println("Load Driver");
-			WebDriver driver;
-			driver = AllDrive.getWebDriver();
-			driver.get(URi);
-			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
-		}
+		System.out.println("App Load Driver");
+		//AllDrive.getAppDriver();
+		/*
+		 * String URi=SeleniumContext.getTestLevelURL(); System.out.println(URi); String
+		 * Rest = SeleniumContext.getTestLevelDriverRequired(); if(Rest.equals("NO")) {
+		 * System.out.println("Rest Assured"); RestAssured.baseURI = URi; restProxy();
+		 * RestAssured.config =
+		 * RestAssured.config().logConfig(LogConfig.logConfig().defaultStream(AllDrive.
+		 * getPrintStream()).enablePrettyPrinting(true));
+		 * RestAssured.useRelaxedHTTPSValidation(); } else
+		 * if(SeleniumContext.getTestLevelAppDriverRequired().equals("YES")){
+		 * System.out.println("App Load Driver"); AllDrive.getAppDriver(); } else {
+		 * System.out.println("Load Driver"); WebDriver driver; driver =
+		 * AllDrive.getWebDriver(); driver.get(URi);
+		 * driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); }
+		 */
 
 		Class<? extends Object> className = m.getDeclaringClass();
 		Test test = m.getAnnotation(Test.class);
@@ -122,6 +137,7 @@ public class Base {
 	{
 		System.out.println("Thanossssssssssssssssssssssssssssssssssssssssssssssssssss");
 		AllDrive.cleanUp();
+		AllDrive.cleanAppDriver();
 		/*if(driver!=null)
 			driver.quit();*/
 		log.debug("END");
@@ -140,13 +156,14 @@ public class Base {
 	}
 
 	public static String loggedRequestPathIn(StringWriter writer) {
-		return StringUtils.substringBetween(writer.toString(), "", "HTTP/");
+		System.out.println(writer.toString());
+		return StringUtils.substringBetween(writer.toString().replaceAll("[[<>#;.(){\\\\/]$%%}]"," "), "", "HTTP");
 	}
 	public static String loggedResponsePathIn(StringWriter writer) {
-		return StringUtils.substringAfter(writer.toString(), "HTTP/");
+		return StringUtils.substringAfter(writer.toString().replaceAll("[[<>#;.(){\\\\/]$%%}]"," "), "HTTP");
 	}
 	public static String loggedRequestPathInLast(StringWriter writer) {
-		return StringUtils.substringAfterLast(writer.toString(),"Request method");
+		return StringUtils.substringAfterLast(writer.toString().replaceAll("[[<>#;.(){\\\\/]$%%}]"," "),"Request method");
 	}
 	public static void RestReset()
 	{

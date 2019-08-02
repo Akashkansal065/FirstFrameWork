@@ -6,7 +6,7 @@
 <!--Msite browserName = apple,iphonesize,androidsize -->
 <!--M deviceName = Apple iphone 6,Nexus 5 -->
 
-<suite name="DataDriven" parallel="false" thread-count="1" verbose="10">
+<suite name="DataDriven" parallel="tests" thread-count="2" verbose="10">
 	<listeners>
 		<listener class-name="com.magic.listners.CustomListner"></listener>
 		<listener class-name="com.magic.listners.AnnotationTransformer"></listener>
@@ -40,14 +40,14 @@
 			<class name="com.magic.testcases.TestClssSecond"></class>
 		</classes>
 	</test>	 -->
-	<test name="RestAssured">
+	<!-- <test name="RestAssured">
 	<parameter name="WebDriverRequired" value="NO"></parameter>
 	<parameter name="RestProxy" value="NO"></parameter>
 	<parameter name="URL" value="https://deployment.magicbricks.com"></parameter>
 	<classes>
 	<class name="com.magic.RestAssured.GetRequest"></class>
 	</classes>
-	</test>
+	</test> -->
 	<!-- <test name="RestAssuredPost">
 	<parameter name="WebDriverRequired" value="NO"></parameter>
 	<parameter name="URL" value="https://staging.magicbricks.com"></parameter>
@@ -55,4 +55,31 @@
 	<class name="com.magic.RestAssured.PostReq"></class>
 	</classes>
 	</test> -->
+	<test name="Appium">
+	<parameter name="AppiumDriverRequired" value="YES"></parameter>
+	<parameter name="RestProxy" value="NO"></parameter>
+	<parameter name="browserName" value="app"></parameter>
+	<parameter name="deviceName" value="olddevice"></parameter>
+	<parameter name="mobileAdbName" value="emulator-5554"></parameter>
+	<parameter name="systemPort" value="8200"/>
+	<parameter name="URL" value="https://deployment.magicbricks.com"></parameter>
+	<classes>
+	<class name="com.magic.testcases.AppiumFirstTest"></class>
+	</classes>
+	</test>
+	
+	
+	<test name="Appiums">
+	<parameter name="AppiumDriverRequired" value="YES"></parameter>
+	<parameter name="RestProxy" value="NO"></parameter>
+	<parameter name="browserName" value="app"></parameter>
+	<parameter name="deviceName" value="olddevice1"></parameter>
+	<parameter name="mobileAdbName" value="emulator-5556"></parameter>
+	<parameter name="systemPort" value="8201"/>
+	<parameter name="URL" value="https://deployment.magicbricks.com"></parameter>
+	<classes>
+	<class name="com.magic.testcases.AppiumFirstTest"></class>
+	</classes>
+	</test>
+	
 </suite>

@@ -95,31 +95,35 @@ public class Provider{
 		}
 		return arr;
 	}
-	public Map<String,List<Map<String,String>>> restData()
+	public Map<String,Map<String,List<List<String>>>> restData()
 	{
-
 		//System.out.println("Rest Excel");
 		ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//Rest.xlsx");
 		String sheetname ="Sheet1";
 		int rows = excel.getRowCount(sheetname);
-		//int column = excel.getColumnCount(sheetname);
-		Map<String,List<Map<String,String>>> allData = new LinkedHashMap<>();
+		int columnCount = excel.getColumnCount(sheetname);
+		Map<String,Map<String,List<List<String>>>> allData = new LinkedHashMap<>();
 
-		for(int i=1;i<=rows;i++)
-		{
-			HashMap<String,String> map = new HashMap<>();
-			for(int j=1;j<2;j++)
-			{
-				//System.out.println(excel.getCellData(i, 1,sheetname)+" : "+excel.getCellData(i, 2,sheetname));
-				map.put(excel.getCellData(i, 1,sheetname),excel.getCellData(i, 2,sheetname));
+		for(int rowIdx = 1; rowIdx <= rows; rowIdx++) {
+			String agicKey = excel.getCellData(rowIdx, 0,sheetname); // get first key
+			
+			if(allData.get(agicKey) == null) {
+				//allData.put(agicKey, new LinkedHashMap<>());
 			}
-			String methodName = excel.getCellData(i, 0,sheetname);
-			//System.out.println(methodName);
+			Map<String,List<List<String>>> secondMap = allData.get(agicKey);	// get second key
+			
+			String mobilKey = excel.getCellData(rowIdx, 1,sheetname);
+			if(secondMap.get(mobilKey) == null) {
+				//secondMap.put(mobilKey, new ArrayList<>());
+			}
+			List<List<String>> dataList = secondMap.get(mobilKey);
 
-			if(allData.get(methodName) == null) {
-				allData.put(methodName, new ArrayList<Map<String,String>>());
+			List<String> dataValueList = new ArrayList<>();
+			for(int colIdx = 2; colIdx < columnCount; colIdx++) {
+				dataValueList.add(excel.getCellData(rowIdx, colIdx,sheetname));
 			}
-			allData.get(methodName).add(map);
+			
+			dataList.add(dataValueList);
 		}
 		return allData;
 

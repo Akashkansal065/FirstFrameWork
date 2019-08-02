@@ -1,12 +1,17 @@
 package com.magic.base;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,10 +22,44 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import com.magic.seleniumUtils.SeleniumContext;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.appium.java_client.service.local.flags.ServerArgument;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BrowserType {
 
+	static AppiumDriverLocalService service;
+	String sdkPath = "C:\\Users\\Akash.Kansal\\AppData\\Local\\Android\\Sdk\\";// or for windows D:/Android/adt-bundle-windows-x86_64-20140702/sdk/
+	String adbPath = sdkPath + "platform-tools" + File.separator + "adb";
+	String emulatorPath = sdkPath + "tools" + File.separator + "emulator";
+	//Please make sure to change the value of "sdkPath" variable to your SDK installation directory.
+	//The following code will start an emulator with the provided AVD name.
+
+	/**
+	 * Starts an emulator for the provided AVD name
+	 * 
+	 * @param nameOfAVD
+	 */
+	public void launchEmulator(String nameOfAVD) {
+		System.out.println("Starting emulator for '" + nameOfAVD + "' ...");
+		String[] aCommand = new String[] { emulatorPath, "-avd", nameOfAVD };
+		System.out.println(aCommand);
+		try {
+			Process process = new ProcessBuilder(aCommand).start();
+			process.waitFor(120, TimeUnit.SECONDS);
+			System.out.println("Emulator launched successfully!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	static synchronized WebDriver browser() throws MalformedURLException
 	{
 		WebDriver driver;
@@ -49,7 +88,7 @@ public class BrowserType {
 			}
 			else
 			{
-			driver=new ChromeDriver(chromeOptions);
+				driver=new ChromeDriver(chromeOptions);
 			}
 			return driver;
 			/**********************************************************************************/
@@ -63,7 +102,7 @@ public class BrowserType {
 			}
 			else
 			{
-			driver=new FirefoxDriver();
+				driver=new FirefoxDriver();
 			}
 			return driver;
 			/**********************************************************************************/
@@ -76,7 +115,7 @@ public class BrowserType {
 			}
 			else
 			{
-			driver=new InternetExplorerDriver();
+				driver=new InternetExplorerDriver();
 			}
 			return driver;
 			/**********************************************************************************/
@@ -145,6 +184,7 @@ public class BrowserType {
 			driver = new ChromeDriver(androidSize);
 			return driver;
 			/**********************************************************************************/
+
 		default:
 			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
 			ChromeOptions chromeOptions1 = new ChromeOptions();
@@ -154,6 +194,118 @@ public class BrowserType {
 			driver=new ChromeDriver(chromeOptions1);
 			return driver;
 		}
+	}
+	
+	
+	public static String AppiumServiceUrl()
+	{
+	//.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+	String service_url;
+	service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+			.usingPort(0).withArgument(GeneralServerFlag.LOG_LEVEL,"error").usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
+			.withAppiumJS(new File(
+					"C:\\Users\\Akash.Kansal\\AppData\\Local\\appium-desktop\\app-1.5.0\\resources\\app\\node_modules\\appium\\build\\lib\\main.js")));
+	service_url = service.getUrl().toString();
+	service.start();
+	return service_url;
+	}
+	
+	public void stopAppiumService()
+	{
+		service.stop();
+	}
+
+	static AndroidDriver app() throws MalformedURLException
+	{
+		AndroidDriver<?> driver;
+		
+		String browserName = null;
+		String Grid = null;
+		if(browserName==null)
+		{
+			browserName = SeleniumContext.getTestLevelBROWSER_TYPE();
+			//Grid = SeleniumContext.getSuiteLevelGRID();
+		}
+		System.out.println("browserName---:"+browserName);
+		switch(browserName){
+		case "chromeapp":
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+
+			DesiredCapabilities cap = new DesiredCapabilities();
+			cap.setBrowserName("Chrome");
+			cap.setPlatform(Platform.ANDROID);
+			cap.setVersion("5.1");
+			cap.setCapability("deviceName", "Moto E");
+			cap.setCapability("udid", "TA09407DHD");
+			cap.setAcceptInsecureCerts(true);
+
+			driver = new AndroidDriver<WebElement>(new URL(SeleniumContext.getTestLevelGRID_URL()),cap);
+			return driver;
+
+			/**********************************************************************************/
+		case "app":
+			
+			DesiredCapabilities cap1 = new DesiredCapabilities();
+			cap1.setCapability(MobileCapabilityType.DEVICE_NAME, SeleniumContext.getTestLevelDEVICE_NAME().toString());
+			//cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Moto E");
+			cap1.setCapability("udid", SeleniumContext.getTestLevelmobileAdbName().toString());
+			//cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "5.1");
+
+			cap1.setCapability("appPackage", "com.timesgroup.magicbricks");
+			cap1.setCapability("appActivity", "com.til.mb.splash.SplashView");
+			cap1.setCapability(MobileCapabilityType.APP, "E:\\selenium-java-3.141.59\\libs\\Magicbricks.apk");
+			cap1.setCapability(MobileCapabilityType.FULL_RESET,true);
+			cap1.setCapability("autoGrantPermissions", true);
+			cap1.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
+			cap1.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+			System.out.println("portttttttttt"+SeleniumContext.getTestLevelsystemPort().toString());
+			cap1.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT, SeleniumContext.getTestLevelsystemPort().toString());
+			//System.out.println("addddddddddddd"+AppiumServiceUrl());
+			driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap1);
+			//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			return driver;
+			/**********************************************************************************/
+		default:
+			DesiredCapabilities cap11 = new DesiredCapabilities();
+			cap11.setPlatform(Platform.ANDROID);
+			cap11.setVersion("5.1");
+			cap11.setCapability("deviceName", "Moto E");
+			cap11.setCapability("udid", "TA09407DHD");
+			cap11.setAcceptInsecureCerts(true);
+
+			driver = new AndroidDriver<WebElement>(new URL(SeleniumContext.getTestLevelGRID_URL()),cap11);
+			return driver;
+		}
+	}
+		static AndroidDriver apps(String platform, String udid, String systemPort) throws MalformedURLException
+		{
+			System.out.println( platform+ udid+ systemPort);
+			AndroidDriver<?> driver;
+			DesiredCapabilities cap1 = new DesiredCapabilities();
+			cap1.setCapability(MobileCapabilityType.DEVICE_NAME, platform);
+			//cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Moto E");
+			cap1.setCapability("udid", udid);
+			cap1.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0");
+
+			cap1.setCapability("appPackage", "com.timesgroup.magicbricks");
+			cap1.setCapability("appActivity", "com.til.mb.splash.SplashView");
+			cap1.setCapability(MobileCapabilityType.APP, "E:\\selenium-java-3.141.59\\libs\\Magicbricks.apk");
+			cap1.setCapability(MobileCapabilityType.FULL_RESET,true);
+			cap1.setCapability("autoGrantPermissions", true);
+			cap1.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
+			//cap1.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+			System.out.println("portttttttttt"+systemPort);
+			cap1.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT, systemPort);
+			//System.out.println("addddddddddddd"+AppiumServiceUrl());
+			driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap1);
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			return driver;
 	}
 
 }

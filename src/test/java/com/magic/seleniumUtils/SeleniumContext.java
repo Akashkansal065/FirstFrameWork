@@ -22,7 +22,10 @@ public class SeleniumContext {
 	static String URL = "URL";
 	static String DRIVERSWITCH= "WebDriverRequired";
 	static String RProxy= "RestProxy";
-
+	static String AppDriver = "AppiumDriverRequired";
+	static String UDID = "mobileAdbName";
+	static String SYSPORT = "systemPort";
+	
 	public static String getTestLevelRestProxy()
 	{
 		String ProxyEnable = null;
@@ -96,6 +99,19 @@ public class SeleniumContext {
 	{
 		return context.getSuite().getParameter(DEVICE_NAME).toString();
 	}
+	public static String getTestLevelmobileAdbName()
+	{
+		return context.getCurrentXmlTest().getParameter(UDID).toString();
+	}
+	public static String getTestLevelsystemPort()
+	{
+		return context.getCurrentXmlTest().getParameter(SYSPORT).toString();
+	}
+
+	public static String getSuiteLevelmobileAdbName()
+	{
+		return context.getSuite().getParameter(UDID).toString();
+	}
 	public static String getTestLevelGRID()
 	{
 		return context.getCurrentXmlTest().getParameter(GRID_SWITCH).toString();
@@ -140,6 +156,19 @@ public class SeleniumContext {
 			WebDriverEnable = "YES";
 		}
 		return WebDriverEnable;
+	}
+	public static String getTestLevelAppDriverRequired()
+	{
+		String AppDriverEnable = null;
+		try
+		{
+			AppDriverEnable = context.getCurrentXmlTest().getParameter(AppDriver).toString();
+		}
+		catch(NullPointerException e)
+		{
+			AppDriverEnable = "YES";
+		}
+		return AppDriverEnable;
 	}
 
 }

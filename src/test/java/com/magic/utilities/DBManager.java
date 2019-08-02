@@ -151,6 +151,28 @@ public class DBManager {
 		System.out.println("Connection Closed");
 	}
 
+	public void executeMobilEmailUpdate(String email,String mobile,String ubirfnum) {
+
+
+		System.out.println("Updating Mobile and email id");
+		String Query1 = "update property.tpubi set UBIPRIMARYMOBILE="+mobile+" where UBILOGIN=\""+email+"\" and UBIRFNUM="+ubirfnum;
+		System.out.println(Query1);
+		Connection c = createConnectionForProperty();
+		Statement stm = null;
+		try {
+			stm = c.createStatement();
+			stm.executeUpdate(Query1);
+			closeConnection(c, stm);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	public void closeConnection(Connection con,Statement st)
+	{
+		closeConnection(con,null,st);
+	}
+
 	/*public static void main(String[] args) {
 
 		DBManager db = new DBManager();
