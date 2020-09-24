@@ -18,10 +18,10 @@
 	<parameter name="Grid" value="OFF"></parameter>
 	<parameter name="GURL" value="http://192.168.99.100:12345/wd/hub"></parameter>
 	
-	<!-- <test name="Basics">
-		<parameter name="URL" value="https://www.google.com"></parameter>
-		<parameter name="browserName" value="firefox"></parameter>
+	<test name="Basics">
+		<parameter name="browserName" value="chrome"></parameter>
 		<parameter name="WebDriverRequired" value="YES"></parameter>
+		<parameter name="URL" value="https://www.google.com"></parameter>
 		<groups>
 			<run>
 				<include name="ends"></include>
@@ -30,10 +30,11 @@
 		<classes>
 			<class name="com.magic.testcases.TestClssSecond"></class>
 		</classes>
-	</test> -->
-	<!-- <test name="Basics2">
+	</test>
+	<!-- <test name="Cucumber">
 		<parameter name="URL" value="https://www.google.com"></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
+		<parameter name="WebDriverRequired" value="YES"></parameter>
 		<classes>
 			<class name="RunningSteps.TestRunners"></class>
 			<class name="RunningSteps.TestRunner"></class>
@@ -57,9 +58,10 @@
 	</test> -->
 	<test name="Appium">
 	<parameter name="AppiumDriverRequired" value="YES"></parameter>
+	<parameter name="WebDriverRequired" value="NO"></parameter>
 	<parameter name="RestProxy" value="NO"></parameter>
 	<parameter name="browserName" value="app"></parameter>
-	<parameter name="deviceName" value="olddevice"></parameter>
+	<parameter name="deviceName" value="pixel_xl"></parameter>
 	<parameter name="mobileAdbName" value="emulator-5554"></parameter>
 	<parameter name="systemPort" value="8200"/>
 	<parameter name="URL" value="https://deployment.magicbricks.com"></parameter>
@@ -69,7 +71,7 @@
 	</test>
 	
 	
-	<test name="Appiums">
+	<!-- <test name="Appiums">
 	<parameter name="AppiumDriverRequired" value="YES"></parameter>
 	<parameter name="RestProxy" value="NO"></parameter>
 	<parameter name="browserName" value="app"></parameter>
@@ -80,6 +82,6 @@
 	<classes>
 	<class name="com.magic.testcases.AppiumFirstTest"></class>
 	</classes>
-	</test>
+	</test> -->
 	
 </suite>

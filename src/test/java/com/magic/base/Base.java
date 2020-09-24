@@ -62,58 +62,81 @@ public class Base {
 		//AppServiceUrl = BrowserType.AppiumServiceUrl();
 	}
 
-//	@BeforeTest(alwaysRun = true)
-//    @Parameters({"deviceName", "mobileAdbName", "systemPort"})
-//    public void setup(String platform, String udid, String systemPort) throws Exception {
-//		//SeleniumContext.context = context;
+	@BeforeTest(alwaysRun = true)
+	//@Parameters({"deviceName", "mobileAdbName", "systemPort"})
+	public void setup() throws Exception {
+		//SeleniumContext.context = context;
+		//			System.out.println( platform+ udid+ systemPort);
+		//			try {
+		//				AllDrive.createAppDriver(platform, udid, systemPort);
+		//			} catch (Exception e) {
+		//				e.printStackTrace();
+		//			}
+
+		String Web = SeleniumContext.getTestLevelDriverRequired();
+		System.out.println("-------0-0------------0--000000000000000"+Web);
+//		if(Web.equalsIgnoreCase("NO")) 
+//		{
+//			try
+//			{
+//				ExtentTestManager.startTest(SeleniumContext.getAllContext().getCurrentXmlTest().getName()+".Before Test");
+//				ExtentTestManager.getTest().log(LogStatus.INFO,"@Before Test","Data");
+//				new DBManager().executeUpdate();
+//				new Cookies().addCookies(); 
+//			} 
+//			finally
+//			{
+//				ExtentTestManager.endTest();
+//				ExtentManager.getInstance().flush();
+//				RestReset(); 
+//			} 
+//		}
+
+	}
+
+	
+	//@Parameters({"deviceName", "mobileAdbName", "systemPort"})
+//	public void captainAmerica(String platform, String udid, String systemPort,Method m)
+	@BeforeMethod(alwaysRun=true)
+	public void captainAmerica(ITestContext context,Method m)	
+	{
+		SeleniumContext.context = context;
 //		System.out.println( platform+ udid+ systemPort);
 //		try {
 //			AllDrive.createAppDriver(platform, udid, systemPort);
 //		} catch (Exception e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		/*
-//		 * String Web = SeleniumContext.getTestLevelDriverRequired();
-//		 * if(Web.equalsIgnoreCase("NO")) { try{
-//		 * ExtentTestManager.startTest(SeleniumContext.getAllContext().getCurrentXmlTest
-//		 * ().getName()+".Before Test");
-//		 * ExtentTestManager.getTest().log(LogStatus.INFO,"@Before Test","Data"); new
-//		 * DBManager().executeUpdate(); new Cookies().addCookies(); } finally{
-//		 * ExtentTestManager.endTest(); ExtentManager.getInstance().flush();
-//		 * RestReset(); } }
-//		 */
-//	}
-	
-	@BeforeMethod(alwaysRun=true)
-	@Parameters({"deviceName", "mobileAdbName", "systemPort"})
-	public void captainAmerica(String platform, String udid, String systemPort,Method m)
-	{
-		//SeleniumContext.context = context;
-		System.out.println( platform+ udid+ systemPort);
-		try {
-			AllDrive.createAppDriver(platform, udid, systemPort);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		System.out.println("Before Mehod Executing fo the method :- "+m.getName());
-		System.out.println("App Load Driver");
+		//System.out.println("App Load Driver");
 		//AllDrive.getAppDriver();
-		/*
-		 * String URi=SeleniumContext.getTestLevelURL(); System.out.println(URi); String
-		 * Rest = SeleniumContext.getTestLevelDriverRequired(); if(Rest.equals("NO")) {
-		 * System.out.println("Rest Assured"); RestAssured.baseURI = URi; restProxy();
-		 * RestAssured.config =
-		 * RestAssured.config().logConfig(LogConfig.logConfig().defaultStream(AllDrive.
-		 * getPrintStream()).enablePrettyPrinting(true));
-		 * RestAssured.useRelaxedHTTPSValidation(); } else
-		 * if(SeleniumContext.getTestLevelAppDriverRequired().equals("YES")){
-		 * System.out.println("App Load Driver"); AllDrive.getAppDriver(); } else {
-		 * System.out.println("Load Driver"); WebDriver driver; driver =
-		 * AllDrive.getWebDriver(); driver.get(URi);
-		 * driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); }
-		 */
+		String URi=SeleniumContext.getTestLevelURL(); 
+		System.out.println(URi); 
+		String Rest = SeleniumContext.getTestLevelDriverRequired(); 
+		String App = SeleniumContext.getTestLevelAppDriverRequired();
+		if(Rest.equals("NO") && App.equalsIgnoreCase("NO")) {
+			System.out.println("Rest Assured"); 
+			RestAssured.baseURI = URi; 
+			restProxy();
+			RestAssured.config =
+					RestAssured.config().logConfig(LogConfig.logConfig().defaultStream(AllDrive.
+							getPrintStream()).enablePrettyPrinting(true));
+			RestAssured.useRelaxedHTTPSValidation(); 
+		} 
+		else if(App.equals("YES"))
+		{
+			System.out.println("App Load Driver"); 
+			AllDrive.getAppDriver(); 
+		} 
+		else 
+		{
+			System.out.println("Load Driver"); 
+			WebDriver driver; 
+			driver = AllDrive.getWebDriver();
+			driver.get(URi);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); 
+		}
+
 
 		Class<? extends Object> className = m.getDeclaringClass();
 		Test test = m.getAnnotation(Test.class);
@@ -172,10 +195,10 @@ public class Base {
 		RestAssured.baseURI = null;
 		RestAssured.reset();
 	}
-	
+
 	public static void restProxy()
 	{
 		if(SeleniumContext.getTestLevelRestProxy().equalsIgnoreCase("Yes"))
-		RestAssured.proxy(8080);
+			RestAssured.proxy(8080);
 	}
 }

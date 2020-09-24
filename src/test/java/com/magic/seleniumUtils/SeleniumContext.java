@@ -139,7 +139,7 @@ public class SeleniumContext {
 		}
 		catch(NullPointerException e)
 		{
-			WebDriverEnable = "YES";
+			WebDriverEnable = "NO";
 		}
 		return WebDriverEnable;
 	}
@@ -166,7 +166,7 @@ public class SeleniumContext {
 		}
 		catch(NullPointerException e)
 		{
-			AppDriverEnable = "YES";
+			AppDriverEnable = "NO";
 		}
 		return AppDriverEnable;
 	}
