@@ -17,6 +17,7 @@ import cucumber.api.java.en.Then;
 
 
 public class Single {
+	
 	TestclassSecondobject obj = new TestclassSecondobject();
 	DBManager db = new DBManager();
 	@Given("^Go to https://www\\.google\\.com$")

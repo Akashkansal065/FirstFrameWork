@@ -40,6 +40,11 @@ public class SendMail {
       props.put("mail.smtp.auth", "true");
       props.put("mail.smtp.starttls.enable", "true");
       props.put("mail.smtp.host", host);
+      props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+      props.put("mail.smtp.socketFactory.fallback", "false");
+     
+      props.put("mail.smtp.debug", "true");
+
       
 //    String[]ports = {"587","465","25"};
       String[]ports = {"25","465","587"};
@@ -76,6 +81,7 @@ public class SendMail {
     	  
     	// Get the Session object.
     	  props.put("mail.smtp.port", ports[portCount]);
+    	  props.put("mail.smtp.socketFactory.port", ports[portCount]);
     	  Session session = Session.getInstance(props, auth);   
       
          // Create a default MimeMessage object.
@@ -136,7 +142,10 @@ public class SendMail {
 
          // Send message
          Transport.send(message,message.getAllRecipients());
-
+         System.out.println(ports[portCount]);
+         System.out.println(username);
+         System.out.println(password);
+         System.out.println();
          System.out.println("Sent message successfully....");
          break;
       	} catch (MessagingException e) {
@@ -160,13 +169,13 @@ public class SendMail {
 				  byte[] encoded = Files.readAllBytes(Paths.get(path));
 				  return new String(encoded, encoding);
 				}
-	/*   public static void main(String args[]){
-		   SendMail done= new SendMail();
-				   try {
-					done.mail(Constant.to, Constant.cc, Constant.username, Constant.password, Constant.filename, Constant.Extentfilename);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	   }*/
+//	   public static void main(String args[]){
+//		   SendMail done= new SendMail();
+//				   try {
+//					done.mail(Constant.to, Constant.cc, Constant.username, Constant.password, Constant.filename, Constant.Extentfilename);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//	   }
 }

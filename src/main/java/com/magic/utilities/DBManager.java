@@ -11,19 +11,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.relevantcodes.extentreports.LogStatus;
+
 public class DBManager {
 
 	public Connection createConnectionForProperty()
 	{
 		String port=":3311/";
 		String localIp = "jdbc:mysql://192.168.207.178";
-		String username = "qc_akashkansal";
-		String password = "lasnakhsakaY@720";
+		String username = "app_readuser";
+		String password = "@ppr3@dU$eROnu@tdEEbee";
 		String Schema = "property";
 		Connection con = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(localIp+port+Schema,username,password);
 		}
 		catch (ClassNotFoundException | SQLException e) {
@@ -54,12 +56,24 @@ public class DBManager {
 		}
 	}
 
+	public void Update(String Query) {
+		System.out.println("Updating:- "+Query);
+		Connection c = createConnectionForProperty();
+		Statement stm = null;
+		try {
+			stm = c.createStatement();
+			stm.executeUpdate(Query);
+			closeConnection(c, stm);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public Map<String,String> executeQuerySRow(String query)
 	{
-		System.out.println("dbdbdbdbdbdbdbdbdbdbdbdbdbddbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdb");
+		//System.out.println("dbdbdbdbdbdbdbdbdbdbdbdbdbddbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdb");
 		System.out.println(query);
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e1) {
 		}
 		Connection c = createConnectionForProperty();
@@ -78,8 +92,8 @@ public class DBManager {
 				map = new LinkedHashMap<String,String>();
 				for(int i=1;i<column;i++)
 				{
-					System.out.println(rowData.getColumnName(i)+":"+rs.getString(rowData.getColumnName(i)));
-					map.put(rowData.getColumnName(i),rs.getString(rowData.getColumnName(i)));
+					System.out.println(rowData.getTableName(i)+"."+rowData.getColumnLabel(i)+":"+rs.getString(rowData.getColumnLabel(i)));
+					map.put(rowData.getTableName(i)+"."+rowData.getColumnLabel(i),rs.getString(rowData.getColumnLabel(i)));
 				}
 			}
 			closeConnection(c, rs, stm);
@@ -179,5 +193,20 @@ public class DBManager {
 		String Query ="select * from tpsbm order by createdate desc";
 		db.executeQuerySRow(Query);
 	}*/
+	
+	public void otpMobileReset(String mobileNo)	
+	{
+		Update("update property.tpmvt set ATTEMPTCOUNT=0,MVTOTPUSED='N' where mvtmobile IN ('"+mobileNo+"')");
+		Update("update tpappnotifconfig set NCNOTIFFREQ=0  where NCAPPCNDRFNUM IN ('"+mobileNo+"')");				
+		ExtentTestManager.getTest().log(LogStatus.INFO,"Otp Reset",mobileNo);
+	}
 
+	public String getMobileOtp(String mobileNo)
+	{
+
+		Map<String, String> otpMap = executeQuerySRow("Select * from property.tpmvt where mvtmobile='"+mobileNo+"'");
+		String otp = otpMap.get("tpmvt.EXFIELD2");
+		return otp;
+			
+	}
 }

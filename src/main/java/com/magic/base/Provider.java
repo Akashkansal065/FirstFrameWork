@@ -1,5 +1,6 @@
 package com.magic.base;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -30,7 +31,9 @@ public class Provider{
 		for (Method method : meth) {
 			System.out.println(method.getName());
 		}*/
-		ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//"+className.getSimpleName()+".xlsx");
+		ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//"+className.getSimpleName()+".xlsx");				
+		//excel = new ExcelReader(System.getProperty("user.dir")+"//src//test//resources//excel//TestClssSecond.xlsx");
+		
 		String sheetname ="Sheet1";
 		int rows = excel.getRowCount(sheetname);
 		int column = excel.getColumnCount(sheetname);

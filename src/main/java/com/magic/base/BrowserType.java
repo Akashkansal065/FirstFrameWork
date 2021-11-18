@@ -5,18 +5,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -30,8 +30,8 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.appium.java_client.service.local.flags.ServerArgument;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.lightbody.bmp.client.ClientUtil;
 
 public class BrowserType {
 
@@ -59,24 +59,27 @@ public class BrowserType {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	static WebDriver browser() throws MalformedURLException
+
+
+	static WebDriver browser(String browserName) throws MalformedURLException
 	{
 		WebDriver driver;
-		String browserName = null;
 		String Grid = null;
-		if(browserName==null)
+		if(browserName == null || browserName == "")
 		{
-			browserName = SeleniumContext.getTestLevelBROWSER_TYPE();
+			browserName = new SeleniumContext().contextNext.getCurrentXmlTest().getParameter("browserName");
+			Grid = SeleniumContext.getSuiteLevelGRID();
+		}
+		else {
+			browserName = browserName;
 			Grid = SeleniumContext.getSuiteLevelGRID();
 		}
 		System.out.println("browserName---:"+browserName);
 		switch(browserName){
 
 		case "chromeauto":
-			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
-			//WebDriverManager.chromedriver().setup();
+			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("test-type");
 			chromeOptions.addArguments("disable-infobars");
@@ -94,8 +97,8 @@ public class BrowserType {
 			return driver;
 			/**********************************************************************************/
 		case "chrome":
-			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
-			//WebDriverManager.chromedriver().setup();
+			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
 			ChromeOptions chromeOptions1 = new ChromeOptions();
 			chromeOptions1.addArguments("test-type");
 			chromeOptions1.addArguments("disable-infobars");
@@ -111,6 +114,81 @@ public class BrowserType {
 			else
 			{
 				driver=new ChromeDriver(chromeOptions1);
+			}
+			return driver;
+			/**********************************************************************************/
+		case "chromeproxy":
+			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
+			//AllDrive.getMobProxyServer();
+			Proxy seleniumProxy = ClientUtil.createSeleniumProxy(AllDrive.getMobProxyServer());
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			proxyCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+			ChromeOptions chromeProxyOptions = new ChromeOptions();
+			chromeProxyOptions.addArguments("--disable-save-password-bubble");
+			Map<String, Object> prefs = new HashMap<>();
+			prefs.put("credentials_enable_service", false);
+			prefs.put("profile.default_content_setting_values.notifications", 2);
+			prefs.put("profile.password_manager_enabled", false);
+			chromeProxyOptions.setExperimentalOption("prefs", prefs);
+			chromeProxyOptions.addArguments("test-type");
+			chromeProxyOptions.addArguments("--disable-web-security");
+			chromeProxyOptions.addArguments("disable-notifications");
+			chromeProxyOptions.addArguments("disable-infobars");
+			chromeProxyOptions.addArguments("start-maximized");
+			chromeProxyOptions.addArguments("--verbose");
+			chromeProxyOptions.setExperimentalOption("useAutomationExtension", false);
+			chromeProxyOptions.setExperimentalOption("excludeSwitches",Collections.singletonList("enable-automation"));
+			proxyCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeProxyOptions);
+			chromeProxyOptions.merge(proxyCapabilities);
+			if(Grid.equals("ON"))
+			{
+				driver = new RemoteWebDriver(new URL(SeleniumContext.getSuiteLevelGRID_URL()), chromeProxyOptions);
+			}
+			else
+			{
+				driver=new ChromeDriver(chromeProxyOptions);
+			}
+			return driver;
+			/**********************************************************************************/
+		case "msiteproxy":
+			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
+			Proxy msiteProxy = ClientUtil.createSeleniumProxy(AllDrive.getMobProxyServer());
+			DesiredCapabilities msiteProxyCapabilities = DesiredCapabilities.chrome();
+			msiteProxyCapabilities.setCapability(CapabilityType.PROXY, msiteProxy);
+			msiteProxyCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+			ChromeOptions chromeOptionsmsite = new ChromeOptions();
+			
+			Map<String, Object> msitePrefs = new HashMap<>();
+			msitePrefs.put("credentials_enable_service", false);
+			msitePrefs.put("profile.default_content_setting_values.notifications", 2);
+			msitePrefs.put("profile.password_manager_enabled", false);
+			
+			Map<String, Object> androidMetrics1 = new HashMap<>();
+			androidMetrics1.put("width", Integer.parseInt("375"));
+			androidMetrics1.put("height", Integer.parseInt("620"));
+			androidMetrics1.put("pixelRatio", 3.5);
+			msitePrefs.put("deviceMetrics", androidMetrics1);
+			msitePrefs.put("userAgent", "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Mobile Safari/537.36");
+			chromeOptionsmsite.setExperimentalOption("mobileEmulation", msitePrefs);
+			chromeOptionsmsite.addArguments("test-type");
+			chromeOptionsmsite.addArguments("disable-notifications");
+			chromeOptionsmsite.addArguments("disable-infobars");
+			chromeOptionsmsite.addArguments("start-maximized");
+			chromeOptionsmsite.addArguments("--verbose");
+			chromeOptionsmsite.addArguments("--disable-save-password-bubble");
+			chromeOptionsmsite.setExperimentalOption("excludeSwitches",Collections.singletonList("enable-automation"));
+			msiteProxyCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptionsmsite);
+			chromeOptionsmsite.merge(msiteProxyCapabilities);
+			if(Grid.equals("ON"))
+			{
+				driver = new RemoteWebDriver(new URL(SeleniumContext.getSuiteLevelGRID_URL()), chromeOptionsmsite);
+			}
+			else
+			{
+				driver=new ChromeDriver(chromeOptionsmsite);
 			}
 			return driver;
 			/**********************************************************************************/
@@ -167,14 +245,14 @@ public class BrowserType {
 			Map<String, String> mobileEmulation = new HashMap<String, String>();
 			mobileEmulation.put("deviceName", SeleniumContext.getTestLevelDEVICE_NAME());
 
-			ChromeOptions chromeappleOptions1 = new ChromeOptions();
-			chromeappleOptions1.addArguments("disable-infobars");
-			chromeappleOptions1.setExperimentalOption("mobileEmulation", mobileEmulation);
+			ChromeOptions appleOptions = new ChromeOptions();
+			appleOptions.addArguments("disable-infobars");
+			appleOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
 
-			DesiredCapabilities capabilities11 = DesiredCapabilities.chrome();
-			capabilities11.setCapability(ChromeOptions.CAPABILITY, chromeappleOptions1);
+			DesiredCapabilities appleCapabilities = DesiredCapabilities.chrome();
+			appleCapabilities.setCapability(ChromeOptions.CAPABILITY, appleOptions);
 
-			driver = new ChromeDriver(capabilities11);
+			driver = new ChromeDriver(appleCapabilities);
 			return driver;
 			/**********************************************************************************/
 		case "iphonesize":
@@ -223,29 +301,29 @@ public class BrowserType {
 
 		default:
 			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//drivers//chromedriver.exe");
-			ChromeOptions chromeOptions11 = new ChromeOptions();
-			chromeOptions11.addArguments("test-type");
-			chromeOptions11.addArguments("disable-infobars");
-			chromeOptions11.addArguments("start-maximized");
-			driver=new ChromeDriver(chromeOptions11);
+			ChromeOptions defaults = new ChromeOptions();
+			defaults.addArguments("test-type");
+			defaults.addArguments("disable-infobars");
+			defaults.addArguments("start-maximized");
+			driver=new ChromeDriver(defaults);
 			return driver;
 		}
 	}
-	
-	
+
+
 	public static String AppiumServiceUrl()
 	{
-	//.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-	String service_url;
-	service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
-			.usingPort(0).withArgument(GeneralServerFlag.LOG_LEVEL,"error").usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
-			.withAppiumJS(new File(
-					"C:\\Users\\Akash.Kansal\\AppData\\Local\\appium-desktop\\app-1.5.0\\resources\\app\\node_modules\\appium\\build\\lib\\main.js")));
-	service_url = service.getUrl().toString();
-	service.start();
-	return service_url;
+		//.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+		String service_url;
+		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+				.usingPort(0).withArgument(GeneralServerFlag.LOG_LEVEL,"error").usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
+				.withAppiumJS(new File(
+						"C:\\Users\\Akash.Kansal\\AppData\\Local\\appium-desktop\\app-1.5.0\\resources\\app\\node_modules\\appium\\build\\lib\\main.js")));
+		service_url = service.getUrl().toString();
+		service.start();
+		return service_url;
 	}
-	
+
 	public void stopAppiumService()
 	{
 		service.stop();
@@ -254,7 +332,7 @@ public class BrowserType {
 	static AndroidDriver app() throws MalformedURLException
 	{
 		AndroidDriver<?> driver;
-		
+
 		String browserName = null;
 		String Grid = null;
 		if(browserName==null)
@@ -280,7 +358,7 @@ public class BrowserType {
 
 			/**********************************************************************************/
 		case "app":
-			
+
 			DesiredCapabilities cap1 = new DesiredCapabilities();
 			cap1.setCapability(MobileCapabilityType.DEVICE_NAME, SeleniumContext.getTestLevelDEVICE_NAME().toString());
 			//cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Moto E");
@@ -318,34 +396,34 @@ public class BrowserType {
 			return driver;
 		}
 	}
-		static AndroidDriver apps(String platform, String udid, String systemPort) throws MalformedURLException
-		{
-			System.out.println( platform+ udid+ systemPort);
-			AndroidDriver<?> driver;
-			DesiredCapabilities cap1 = new DesiredCapabilities();
-			cap1.setCapability(MobileCapabilityType.DEVICE_NAME, platform);
-			//cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Moto E");
-			cap1.setCapability("udid", udid);
-			cap1.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7.1.1");
+	static AndroidDriver apps(String platform, String udid, String systemPort) throws MalformedURLException
+	{
+		System.out.println( platform+ udid+ systemPort);
+		AndroidDriver<?> driver;
+		DesiredCapabilities cap1 = new DesiredCapabilities();
+		cap1.setCapability(MobileCapabilityType.DEVICE_NAME, platform);
+		//cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Moto E");
+		cap1.setCapability("udid", udid);
+		cap1.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7.1.1");
 
-			cap1.setCapability("appPackage", "com.timesgroup.magicbricks");
-			cap1.setCapability("appActivity", "com.til.mb.splash.SplashView");
-			cap1.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir")+"//src//test//resources//apps//Magicbricks.apk");
-			cap1.setCapability(MobileCapabilityType.FULL_RESET,true);
-			cap1.setCapability("autoGrantPermissions", true);
-			cap1.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
-			//cap1.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
-			System.out.println("portttttttttt"+systemPort);
-			cap1.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT, systemPort);
-			//System.out.println("addddddddddddd"+AppiumServiceUrl());
-			driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap1);
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			return driver;
+		cap1.setCapability("appPackage", "com.timesgroup.magicbricks");
+		cap1.setCapability("appActivity", "com.til.mb.splash.SplashView");
+		cap1.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir")+"//src//test//resources//apps//Magicbricks.apk");
+		cap1.setCapability(MobileCapabilityType.FULL_RESET,true);
+		cap1.setCapability("autoGrantPermissions", true);
+		cap1.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
+		//cap1.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+		System.out.println("portttttttttt"+systemPort);
+		cap1.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT, systemPort);
+		//System.out.println("addddddddddddd"+AppiumServiceUrl());
+		driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap1);
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		return driver;
 	}
 
 }

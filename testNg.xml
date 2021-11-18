@@ -18,7 +18,7 @@
 	<parameter name="Grid" value="OFF"></parameter>
 	<parameter name="GURL" value="http://192.168.99.100:12345/wd/hub"></parameter>
 	
-	<test name="Basics">
+	<!-- <test name="Basics">
 		<parameter name="browserName" value="chrome"></parameter>
 		<parameter name="WebDriverRequired" value="YES"></parameter>
 		<parameter name="URL" value="https://www.google.com"></parameter>
@@ -30,7 +30,18 @@
 		<classes>
 			<class name="com.magic.testcases.TestClssSecond"></class>
 		</classes>
-	</test>
+	</test> -->
+	
+	<!-- <test name="ComScore">
+		<parameter name="browserName" value="chromeproxy"></parameter>
+		<parameter name="WebDriverRequired" value="YES"></parameter>
+		<parameter name="URL" value="https://www.magicbricks.com"></parameter>
+		<classes>
+			<class name="com.magic.testcases.ComScore"></class>
+		</classes>
+	</test> -->
+	
+	
 	<!-- <test name="Cucumber">
 		<parameter name="URL" value="https://www.google.com"></parameter>
 		<parameter name="browserName" value="chrome"></parameter>
@@ -41,14 +52,15 @@
 			<class name="com.magic.testcases.TestClssSecond"></class>
 		</classes>
 	</test>	 -->
-	<!-- <test name="RestAssured">
+	
+	<test name="RestAssured">
 	<parameter name="WebDriverRequired" value="NO"></parameter>
 	<parameter name="RestProxy" value="NO"></parameter>
 	<parameter name="URL" value="https://deployment.magicbricks.com"></parameter>
 	<classes>
 	<class name="com.magic.RestAssured.GetRequest"></class>
 	</classes>
-	</test> -->
+	</test>
 	<!-- <test name="RestAssuredPost">
 	<parameter name="WebDriverRequired" value="NO"></parameter>
 	<parameter name="URL" value="https://staging.magicbricks.com"></parameter>
@@ -56,7 +68,7 @@
 	<class name="com.magic.RestAssured.PostReq"></class>
 	</classes>
 	</test> -->
-	<test name="Appium">
+	<!-- <test name="Appium">
 	<parameter name="AppiumDriverRequired" value="YES"></parameter>
 	<parameter name="WebDriverRequired" value="NO"></parameter>
 	<parameter name="RestProxy" value="NO"></parameter>
@@ -68,7 +80,7 @@
 	<classes>
 	<class name="com.magic.testcases.AppiumFirstTest"></class>
 	</classes>
-	</test>
+	</test> -->
 	
 	
 	<!-- <test name="Appiums">

@@ -54,12 +54,11 @@ public class TestClssSecond extends Base{
 		//System.out.println("ssssssssssssssssss"+""+data.get("to_email_ids")+"");
 		//try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		//Assert.fail();
-		TestclassSecondobject obj = new TestclassSecondobject();
-		obj.click(obj.gLogo);
-		obj.gLogo.click();
-		obj.logo();
-		obj.search();
-		obj.gSearch.click();
+		/*
+		 * TestclassSecondobject obj = new TestclassSecondobject();
+		 * obj.click(obj.gLogo); obj.gLogo.click(); obj.logo(); obj.search();
+		 * obj.gSearch.click();
+		 */
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		//Assert.fail();
 	}

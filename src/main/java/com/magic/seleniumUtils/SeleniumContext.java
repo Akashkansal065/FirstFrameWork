@@ -6,6 +6,8 @@ public class SeleniumContext {
 
 	public static ITestContext context = null;
 
+	public ITestContext contextNext = null;
+	
 	public static ITestContext getAllContext()
 	{
 		return context;
